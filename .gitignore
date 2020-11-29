@@ -12,7 +12,7 @@
 
 # For non shiting of commits and to have no problems with pull and push commands
 *.txt
-
+!i.txt
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 
