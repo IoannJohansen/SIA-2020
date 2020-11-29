@@ -9,7 +9,6 @@ namespace PN
 		{
 			if (SEARCHEXPR)
 			{
-				cout << "Expr finded" << endl;
 				pos.startEx = ++i;
 				GetExrp(tables.lexTable, pos);
 				ShiftAndWriteLT(tables, &pos, Convertation(pos, &tables.idenTable));

@@ -11,19 +11,22 @@ int wmain(int argc, wchar_t* argv[])
 		log = Log::getlog(param.log);
 		In::IN in = In::getin(param.in);
 
+
 		//-------LEX ANALYSE-------
 		
 		Scanner::Words* words = Scanner::TextDivision(in);
 		Scanner::Tables tables = Scanner::GetTables(words);
 
 		//-------------------------
-		
+
+
 		//-------SYNTAX ANALYSE----
 		MFST_TRACE_START;								
 		MFST::Mfst mfst(tables, GRB::getGreibach());	
 		mfst.start();
 		//-------------------------
-		
+
+
 		//-------POLISH NOTATION---
 
 		PN::PolishNotation(tables);
@@ -38,6 +41,7 @@ int wmain(int argc, wchar_t* argv[])
 		Log::WriteParm(log, param);
 		Log::WriteIn(log, in);
 		Log::Close(log);
+
 		LT::Delete(tables.lexTable);
 		IT::Delete(tables.idenTable);
 	}

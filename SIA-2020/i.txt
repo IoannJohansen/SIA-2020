@@ -4,6 +4,7 @@ integer function fi(integer x, integer y)
 	z=(x+y)*y;
 	return z;
 };
+
 string function fs(string a, string b)
 {
 	declare string c;
@@ -11,6 +12,7 @@ string function fs(string a, string b)
 	c = substr(a, 1,3)+b;
 	return c;
 };
+
 main
 {
 	declare integer x;
@@ -27,7 +29,7 @@ main
 	z = fi(x,y);
 	sc = fs(sa,sb);
 	print 'Контрольный	 пример';
-	print z; 
+	print z+sc; 
 	print sc;	
 	print strlen(sc);
 	return 0;

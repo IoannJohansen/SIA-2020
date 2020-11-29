@@ -59,7 +59,7 @@ namespace LT {
 				if (currentString == this->table[i].sn)
 				{
 					(*lexStream) << this->table[i++].lexema;
-					if (this->table[i-1].lexema==LEX_ID|| this->table[i - 1].lexema == LEX_LITERAL)(*lexStream) << '<' << this->table[i-1].idxTI << '>';
+					
 				}
 				else
 				{
