@@ -1,16 +1,23 @@
 #pragma once
 #define	LT_MAXSIZE			1024		// максимальное количество эл-ов в таблице лексем	
 #define	LT_TI_NULLXDX		-1			// нет элемента таблицы идентификаторов				
-#define	LEX_INTEGER			'g'			// лексема для integer
-#define	LEX_STRING			's'			// лексема для string
+#define	LEX_NUM				'n'			// лексема для num
+#define	LEX_WORD			'w'			// лексема для word
 #define	LEX_TYPE			't'			// лексема для типов
 #define	LEX_ID				'i'			// лексема для идентификатора
 #define	LEX_LITERAL			'l'			// лексема для литерала
-#define	LEX_FUNCTION		'f'			// лексема для function
-#define	LEX_DECLARE			'd'			// лексема для declare
-#define	LEX_RETURN			'r'			// лексема для return
-#define	LEX_PRINT			'p'			// лексема для print
-#define	LEX_MAIN			'm'			// лексема для главной функции
+#define	LEX_PROC			'p'			// лексема для proc
+#define	LEX_CREATE			'c'			// лексема для create
+#define	LEX_OUT				'o'			// лексема для out
+#define	LEX_OUTSTREAM		'r'			// лексема для outStream
+#define	LEX_ENTRY			'e'			// лексема для главной функции
+#define	LEX_IF				'm'			// лексема для условного оператора
+#define	LEX_ELSE			'a'			// лексема для условного оператора ( 2 )
+#define	LEX_STRLEN			's'			// лексема для библиотечной функции
+#define	LEX_STRCMP			'x'			// лексема для библиотечной функции
+#define	LEX_OPEN_PROC		'['			// лексема для открывающкй процедурной скобки
+#define	LEX_CLOSE_PROC		']'			// лексема для закрывающей процедурной скобки
+#define	LEX_ARITHMETIC		'v'			// лексема для арифметических знаков
 #define	LEX_SEMICOLON		';'			// лексема для ;
 #define	LEX_COMMA			','			// лексема для ,
 #define	LEX_LEFTBRACE		'{'			// лексема для {
@@ -21,8 +28,8 @@
 #define	LEX_MINUS			'-'			// лексема для -
 #define	LEX_STAR			'*'			// лексема для *
 #define	LEX_DIRSLASH		'/'			// лексема для /
+#define	LEX_MODULO			'%'			// лексема для деления по модулю
 #define	LEX_EQUAL_SIGN		'='			// лексема для =
-#define	LEX_ARITHMETIC		'v'			// лексема для арифметических знаков
 #define PARM_LEX_DEFAULT_EXT L".lex.txt" //для файла с итогом лексического анализa
 
 

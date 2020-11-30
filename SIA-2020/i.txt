@@ -1,36 +1,23 @@
-integer function fi(integer x, integer y)
-{
-	declare integer z;
+num proc ex(num x, num y)
+[
+	create num z;
+	create word lee;
+	lee = 'Hello world!';
+	z = stringLen(lee);
 	z=(x+y)*y;
-	return z;
-};
-
-string function fs(string a, string b)
-{
-	declare string c;
-	declare string function substr(string a, integer b, integer c);
-	c = substr(a, 1,3)+b;
-	return c;
-};
-
-main
-{
-	declare integer x;
-	declare integer y;
-	declare integer z;
-	declare string sa;
-	declare string sb;
-	declare string sc;
-	declare integer function strlen(string p);
-	x = 3;
-	y = 5;
-	sa = '1234567890';
-	sb = '1234567890';
-	z = fi(x,y);
-	sc = fs(sa,sb);
-	print 'Контрольный	 пример';
-	print z+sc; 
-	print sc;	
-	print strlen(sc);
-	return 0;
-};
+	out z;
+];
+entry
+[
+	create num koo;
+	create word who;
+	create word foo;
+	create num lee;
+	who = 'Hello world!';
+	foo = 'Всем гл';
+	koo = ex(1,4);
+	lee = lexStrCmp(who, foo);
+	outStream lee;
+	outStream koo;
+	out 0;
+];

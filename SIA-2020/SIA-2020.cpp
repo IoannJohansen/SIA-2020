@@ -16,27 +16,29 @@ int wmain(int argc, wchar_t* argv[])
 		
 		Scanner::Words* words = Scanner::TextDivision(in);
 		Scanner::Tables tables = Scanner::GetTables(words);
+		
 
 		//-------------------------
 
 
 		//-------SYNTAX ANALYSE----
-		MFST_TRACE_START;								
-		MFST::Mfst mfst(tables, GRB::getGreibach());	
-		mfst.start();
+
+		//MFST_TRACE_START;								
+		//MFST::Mfst mfst(tables, GRB::getGreibach());	
+		//mfst.start();
+
 		//-------------------------
 
 
 		//-------POLISH NOTATION---
 
-		PN::PolishNotation(tables);
+		//PN::PolishNotation(tables);
 
 		//-------------------------
 
-		
-		
 		tables.idenTable.writeIT(param.in);
 		tables.lexTable.writeLT(param.in);
+		
 		Log::WriteLog(log);
 		Log::WriteParm(log, param);
 		Log::WriteIn(log, in);

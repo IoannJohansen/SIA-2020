@@ -98,16 +98,17 @@ namespace Scanner
 					LT::Add(table.lexTable, AddLex(LEX_ID, words, refInID, &table.idenTable));
 					if (refInID == TI_NULLIDX)
 					{
-						if (!(CHECKFORDECLARE) && !flPar)throw ERROR_THROW_IN(126, LINE, SYM);		// TODO: line & pos;
-						if (!strcmp(block.top(), TI_BLOCK_DEFAULT) && (tempIT.idtype != IT::F || table.lexTable.table[table.lexTable.size-4].lexema==LEX_DECLARE))throw ERROR_THROW_IN(129, LINE, SYM);
-						
+
+						if (!(CHECKFORDECLARE) && !flPar && !(LIBFOO))throw ERROR_THROW_IN(126, LINE, SYM);		// using of undeclared id
+						if (!strcmp(block.top(), TI_BLOCK_DEFAULT) && (tempIT.idtype != IT::F || table.lexTable.table[table.lexTable.size-4].lexema==LEX_CREATE))throw ERROR_THROW_IN(129, LINE, SYM);
 						AddID(lex, &table, tempIT);
 					}
 				}
 			}
 			else
 			{
-					AnalysisItString(&tempIT, j, words);
+				AnalysisItString(&tempIT, j, words);
+				if ((strcmp(lex, "stringLen")==0) || (strcmp(lex, "lexStrCmp") == 0))AddID(lex, &table, tempIT);
 				LT::Add(table.lexTable, AddLex(j, words, -2, &table.idenTable));
 			}
 			words->arr.pop_front();
@@ -119,7 +120,7 @@ namespace Scanner
 	{
 		if (flPar)
 		{
-			if (!(CHECKPARM))throw ERROR_THROW_IN(127, LEXLINE, LEXPOS);		// TODO: line & pos;
+			if (!(CHECKPARM))throw ERROR_THROW_IN(127, LEXLINE, LEXPOS);		// bad declaration of parms
 			tempIT.idtype = IT::P;
 		}
 		if (tempIT.idtype != IT::L)
@@ -161,7 +162,7 @@ namespace Scanner
 		}
 		}
 		IT::Add(tables->idenTable, tempIT);
-		if (tempIT.idtype == IT::F)
+		if (tempIT.idtype == IT::F && (strcmp(tempIT.id, "stringLen") != 0) && (strcmp(tempIT.id, "lexStrCmp") != 0))
 		{
 			block.push(tables->idenTable.table[tables->idenTable.size-1].id);
 		}
@@ -170,7 +171,8 @@ namespace Scanner
 	{
 		switch (lexem[0])
 		{
-
+		case LEX_OPEN_PROC:
+		case LEX_CLOSE_PROC:
 		case LEX_COMMA:
 		case LEX_EQUAL_SIGN:
 		case LEX_LEFTBRACE:
@@ -178,15 +180,15 @@ namespace Scanner
 			return lexem[0];
 		case LEX_SEMICOLON:
 		{
-			if (tables->lexTable.table[tables->lexTable.size-1].lexema==LEX_RIGHTBRACE)
+			if (tables->lexTable.table[tables->lexTable.size-1].lexema == LEX_CLOSE_PROC)
 			{
 				int brBalance = 1;
 				for (int i = tables->lexTable.size-2; i != -1; i--)
 				{
 					switch (tables->lexTable.table[i].lexema)
 					{
-					case LEX_LEFTBRACE: {brBalance--; break; }
-					case LEX_RIGHTBRACE: {brBalance++; break; }
+					case LEX_OPEN_PROC: {brBalance--; break; }
+					case LEX_CLOSE_PROC: {brBalance++; break; }
 					}
 				}
 				if (brBalance != 0)throw ERROR_THROW_IN(116, LEXLINE, LEXPOS);		// invalid bracket balance
@@ -194,6 +196,8 @@ namespace Scanner
 			}
 			return LEX_SEMICOLON;
 		}
+
+		case LEX_MODULO:
 		case LEX_PLUS:
 		case LEX_MINUS:
 		case LEX_STAR:
@@ -213,25 +217,16 @@ namespace Scanner
 			{
 				flPar = true;
 			}
-			if (LIBFOO)
-			{
-				libFoo = true;
-			}
 			return LEX_LEFTHESIS;
 		}
 
 		case LEX_RIGHTHESIS:
 		{
 			if(flPar)flPar = false;
-			if (libFoo)
-			{
-				libFoo = false;
-				block.pop();
-			}
 			return LEX_RIGHTHESIS;
 		}
 
-		default:return '\0';
+		default: return '\0';
 
 		}
 
@@ -240,35 +235,53 @@ namespace Scanner
 	{
 		switch (lexem)
 		{
-		case LEX_DECLARE:
+		
+		case LEX_STRCMP:
+		{
+			tempIT->idtype = IT::IDTYPE::F;
+			strcpy_s(tempIT->parrentBlock, TI_BLOCK_DEFAULT);
+			tempIT->iddatatype = IT::IDDATATYPE::INT;
+			break;
+		}
+
+		case LEX_STRLEN:
+		{
+			tempIT->idtype = IT::IDTYPE::F;
+			strcpy_s(tempIT->id, "strLen");
+			strcpy_s(tempIT->parrentBlock, TI_BLOCK_DEFAULT);
+			tempIT->iddatatype = IT::IDDATATYPE::INT;
+			break;	
+		}
+
+		case LEX_CREATE:
 		{
 			tempIT->idtype = IT::IDTYPE::V;
 			break;
 		}
 
-		case LEX_FUNCTION:
+		case LEX_PROC:
 		{
 			tempIT->idtype = IT::IDTYPE::F;
 			break;
 		}
 
-		case LEX_STRING:
+		case LEX_WORD:
 		{
 			tempIT->iddatatype = IT::STR;
 			lexem = LEX_TYPE;
 			break;
 		}
 
-		case LEX_INTEGER:
+		case LEX_NUM:
 		{
 			tempIT->iddatatype = IT::INT;
 			lexem = LEX_TYPE;
 			break;
 		}
 
-		case LEX_MAIN:
+		case LEX_ENTRY:
 		{
-			if (flMain)throw ERROR_THROW_IN(125, LINE, SYM);
+			if (flMain)throw ERROR_THROW_IN(125, LINE, SYM);		// check for multiply declaration of entry point
 			flMain = true;
 			block.push((char*)TI_BLOCK_MAIN);
 			strcpy_s(tempIT->parrentBlock, block.top());
@@ -283,11 +296,11 @@ namespace Scanner
 	}
 	char Analysis(char* lex, Tables* tables)
 	{
-		char resLex[7] = { LEX_DECLARE , LEX_INTEGER , LEX_STRING, LEX_FUNCTION, LEX_MAIN, LEX_PRINT , LEX_RETURN};
+		char resLex[FST_COUNT] = { LEX_CREATE , LEX_NUM , LEX_WORD, LEX_PROC, LEX_ENTRY, LEX_OUTSTREAM , LEX_OUT, LEX_IF, LEX_ELSE, LEX_STRCMP, LEX_STRLEN};
 
-		FST::FST tokens[FST_COUNT] = { FST::FST(lex, A_DECLARE), FST::FST(lex, A_INTEGER), FST::FST(lex,A_STRING), FST::FST(lex, A_FUNCTION), FST::FST(lex, A_MAIN), FST::FST(lex, A_PRINT), FST::FST(lex, A_RETURN) };
+		FST::FST tokens[FST_COUNT] = { FST::FST(lex, A_CREATE), FST::FST(lex, A_NUM), FST::FST(lex,A_WORD), FST::FST(lex, A_PROC), FST::FST(lex, A_ENTRY), FST::FST(lex, A_OUTSTREAM), FST::FST(lex, A_OUT), FST::FST(lex, A_IF), FST::FST(lex, A_ELSE), FST::FST(lex, A_STRCMP), FST::FST(lex, A_STRLEN) };
 
-		for (int i = 0; i < FST_COUNT; i++)
+ 		for (int i = 0; i < FST_COUNT; i++)
 		{
 			if (FST::execute(tokens[i]))
 			{
@@ -324,7 +337,11 @@ namespace Scanner
 		if (len > ID_MAXSIZE)throw ERROR_THROW_IN(121, LINE, SYM);							// too long id len
 		for (int i = 0; i < len; i++)
 		{
-			if (lex[i] < 'a' || lex[i] > 'z')throw ERROR_THROW_IN(122, LINE, SYM);			// bad char in id
+			if (lex[i] < 'a' || lex[i] > 'z') 
+			{
+				if (lex[i] == 'S' || lex[i] == 'L' || lex[i] == 'C')continue;
+				throw ERROR_THROW_IN(122, LINE, SYM);										// bad char in id
+			}
 		}
 
 		return true;

@@ -1,5 +1,5 @@
 #pragma once
-#define ID_MAXSIZE		7				//максимальное количество сиволов в идентификаторе
+#define ID_MAXSIZE		9				//максимальное количество сиволов в идентификаторе
 #define TI_MAXSIZE		1024			// максимальное количество эл-ов в таблице идентификаторов 
 #define TI_INT_DEFAULT	0x00000000		// значение по умолчанию для типа integer 
 #define TI_STR_DEFAULT	0x00			// значение по умолчанию для типа string 

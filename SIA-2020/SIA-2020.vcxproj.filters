@@ -95,5 +95,6 @@
     <Text Include="i.txt.id.txt" />
     <Text Include="i.txt.lex.txt" />
     <Text Include="i.txt.log" />
+    <Text Include="i1.txt" />
   </ItemGroup>
 </Project>

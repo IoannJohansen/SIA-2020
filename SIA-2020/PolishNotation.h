@@ -4,8 +4,8 @@
 #include <stack>
 #include "Scanner.h"
 #define SEARCHEXPR tables.lexTable.table[i].lexema == LEX_EQUAL_SIGN ||\
- tables.lexTable.table[i].lexema == LEX_PRINT ||\
- tables.lexTable.table[i].lexema == LEX_RETURN
+ tables.lexTable.table[i].lexema == LEX_OUTSTREAM ||\
+ tables.lexTable.table[i].lexema == LEX_OUT
 
 namespace PN
 {
