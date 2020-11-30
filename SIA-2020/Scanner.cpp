@@ -300,7 +300,7 @@ namespace Scanner
 
 		FST::FST tokens[FST_COUNT] = { FST::FST(lex, A_CREATE), FST::FST(lex, A_NUM), FST::FST(lex,A_WORD), FST::FST(lex, A_PROC), FST::FST(lex, A_ENTRY), FST::FST(lex, A_OUTSTREAM), FST::FST(lex, A_OUT), FST::FST(lex, A_IF), FST::FST(lex, A_ELSE), FST::FST(lex, A_STRCMP), FST::FST(lex, A_STRLEN) };
 
- 		for (int i = 0; i < FST_COUNT; i++)
+		for (int i = 0; i < FST_COUNT; i++)
 		{
 			if (FST::execute(tokens[i]))
 			{
