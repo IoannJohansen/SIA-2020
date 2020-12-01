@@ -9,7 +9,7 @@ namespace Parm
 	{
 		PARM parm;
 		wchar_t* log = nullptr;
-		wchar_t* out = nullptr;
+		wchar_t* sin = nullptr;
 		wchar_t* in = nullptr;
 
 		for (int i = 1; i < argc; i++)
@@ -21,10 +21,10 @@ namespace Parm
 					in = wcsstr(argv[i], PARM_IN);
 					wcscpy(parm.in, argv[i] + wcslen(PARM_IN));
 				}
-				if (wcsstr(argv[i], PARM_OUT))
+				if (wcsstr(argv[i], PARM_SIN))
 				{
-					out = wcsstr(argv[i], PARM_OUT);
-					wcscpy(parm.out, argv[i] + wcslen(PARM_OUT));
+					sin = wcsstr(argv[i], PARM_SIN);
+					wcscpy(parm.sin, argv[i] + wcslen(PARM_SIN));
 				}
 				if (wcsstr(argv[i], PARM_LOG))
 				{
@@ -37,10 +37,10 @@ namespace Parm
 		}
 
 		if (in == nullptr) { throw ERROR_THROW(100) };
-		if (out == nullptr)
+		if (sin == nullptr)
 		{
-			wcscpy_s(parm.out, parm.in);
-			wcscat_s(parm.out, PARM_OUT_DEFAULT_EXT);
+			wcscpy_s(parm.sin, parm.in);
+			wcscat_s(parm.sin, PARM_SIN_DEFAULT_EXT);
 		}
 		if (log == nullptr)
 		{

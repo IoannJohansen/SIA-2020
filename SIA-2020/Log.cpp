@@ -62,8 +62,8 @@ namespace Log
 		wcstombs_s(&tsize, buff, parm.in, PARM_MAX_SIZE);
 		*log.stream << "-in: " << buff << endl;
 
-		wcstombs_s(&tsize, buff, parm.out, PARM_MAX_SIZE);
-		*log.stream << "-out: " << buff << endl;
+		wcstombs_s(&tsize, buff, parm.sin, PARM_MAX_SIZE);
+		*log.stream << "-sin: " << buff << endl;
 
 		wcstombs_s(&tsize, buff, parm.log, PARM_MAX_SIZE);
 		*log.stream << "-log: " << buff << endl << endl;

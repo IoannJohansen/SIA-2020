@@ -12,7 +12,7 @@
 #define	LEX_OUTSTREAM		'r'			// лексема для outStream
 #define	LEX_ENTRY			'e'			// лексема для главной функции
 #define	LEX_IF				'm'			// лексема для условного оператора
-#define	LEX_ELSE			'a'			// лексема для условного оператора ( 2 )
+#define	LEX_ELSE			'a'			// лексема для условного оператора (2)
 #define	LEX_STRLEN			's'			// лексема для библиотечной функции
 #define	LEX_STRCMP			'x'			// лексема для библиотечной функции
 #define	LEX_OPEN_PROC		'['			// лексема для открывающкй процедурной скобки
@@ -30,6 +30,8 @@
 #define	LEX_DIRSLASH		'/'			// лексема для /
 #define	LEX_MODULO			'%'			// лексема для деления по модулю
 #define	LEX_EQUAL_SIGN		'='			// лексема для =
+#define LEX_LESS			'<'			// лексема для <
+#define LEX_MORE			'>'			// лексема для >
 #define PARM_LEX_DEFAULT_EXT L".lex.txt" //для файла с итогом лексического анализa
 
 

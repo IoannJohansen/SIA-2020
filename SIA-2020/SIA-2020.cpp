@@ -5,27 +5,33 @@ int wmain(int argc, wchar_t* argv[])
 {
 	Log::LOG log = Log::INITLOG;
 	setlocale(LC_ALL, "Russian");
+	Parm::PARM param = Parm::getparm(argc, argv);
 	try
 	{
-		Parm::PARM param = Parm::getparm(argc, argv);
 		log = Log::getlog(param.log);
 		In::IN in = In::getin(param.in);
-
+		Log::WriteLog(log);
+		Log::WriteParm(log, param);
+		Log::WriteIn(log, in);
+		Log::Close(log);
 
 		//-------LEX ANALYSE-------
 		
 		Scanner::Words* words = Scanner::TextDivision(in);
 		Scanner::Tables tables = Scanner::GetTables(words);
-		
+		tables.idenTable.writeIT(param.in);
+		tables.lexTable.writeLT(param.in);
 
 		//-------------------------
 
 
 		//-------SYNTAX ANALYSE----
 
-		//MFST_TRACE_START;								
-		//MFST::Mfst mfst(tables, GRB::getGreibach());	
-		//mfst.start();
+		log = Log::getlog(param.sin);
+		MFST_TRACE_START(log);								
+		MFST::Mfst mfst(tables, GRB::getGreibach());	
+		mfst.start(log);
+		Log::Close(log);
 
 		//-------------------------
 
@@ -36,24 +42,23 @@ int wmain(int argc, wchar_t* argv[])
 
 		//-------------------------
 
-		tables.idenTable.writeIT(param.in);
-		tables.lexTable.writeLT(param.in);
 		
-		Log::WriteLog(log);
-		Log::WriteParm(log, param);
-		Log::WriteIn(log, in);
-		Log::Close(log);
+		
+		
 
 		LT::Delete(tables.lexTable);
 		IT::Delete(tables.idenTable);
 	}
 	catch (Error::ERROR e) 
 	{
+		log = Log::getlog(param.log);
 		Log::WriteError(log, e);
 		if(e.id!=100)Log::Close(log);
 	}
 	catch (char* e)
 	{
+		Log::Close(log);
+		log = Log::getlog(param.log);
 		Log::WriteError(log, e);
 		Log::Close(log);
 	}

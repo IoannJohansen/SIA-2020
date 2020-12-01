@@ -26,6 +26,7 @@
     <ClCompile Include="IT.cpp" />
     <ClCompile Include="Log.cpp" />
     <ClCompile Include="LT.cpp" />
+    <ClCompile Include="SemA.cpp" />
     <ClCompile Include="SIA-2020.cpp" />
     <ClCompile Include="MFST.cpp" />
     <ClCompile Include="Parm.cpp" />
@@ -44,6 +45,7 @@
     <ClInclude Include="Parm.h" />
     <ClInclude Include="PolishNotation.h" />
     <ClInclude Include="Scanner.h" />
+    <ClInclude Include="SemA.h" />
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <ItemGroup>
@@ -52,6 +54,9 @@
     <Text Include="i.txt.lex.txt" />
     <Text Include="i.txt.log" />
     <Text Include="i1.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="i.txt.sin" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

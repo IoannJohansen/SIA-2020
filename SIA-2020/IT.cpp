@@ -49,6 +49,18 @@ namespace IT
 		return TI_NULLIDX;
 	}
 
+	int IsId(IdTable& idtable, char* id)
+	{
+		for (int i = 0; i < idtable.size; i++)
+		{
+			if (!strcmp(idtable.table[i].id, id))
+			{
+				return i;
+			}
+		}
+		return TI_NULLIDX;
+	}
+
 
 
 	void IdTable::writeIT(const wchar_t* in)

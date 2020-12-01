@@ -51,6 +51,9 @@
     <ClCompile Include="SIA-2020.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="SemA.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Error.h">
@@ -89,6 +92,9 @@
     <ClInclude Include="stdafx.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
+    <ClInclude Include="SemA.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="i.txt" />
@@ -96,5 +102,8 @@
     <Text Include="i.txt.lex.txt" />
     <Text Include="i.txt.log" />
     <Text Include="i1.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="i.txt.sin" />
   </ItemGroup>
 </Project>

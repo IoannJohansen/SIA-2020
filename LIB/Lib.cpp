@@ -4,7 +4,7 @@
 extern "C"
 {
 
-	int __stdcall strln(char* source)
+	int __stdcall stringLen(char* source)
 	{
 		int result = 0;
 		while (source[result] != '\0')
@@ -14,7 +14,7 @@ extern "C"
 		return result;
 	}
 
-	int __stdcall Strcmp(char* source1, char* source2)
+	int __stdcall lexStrCmp(char* source1, char* source2)
 	{
 		int i = 0;
 		while (source1[i] != '\0')
@@ -29,14 +29,14 @@ extern "C"
 
 	}
 
-	int __stdcall readw(char* value)
+	int __stdcall outStreamW(char* value)
 	{
 		setlocale(0, "");
 		std::cout << value << std::endl;
 		return 0;
 	}
 
-	int __stdcall readr(int value)
+	int __stdcall outStreamN(int value)
 	{
 		std::cout << value << std::endl;
 		return 0;

@@ -9,7 +9,7 @@ namespace In
 	IN::E,	IN::F,	IN::F,	IN::F,	IN::F,	IN::F,	IN::F,	IN::F,	IN::F,	IN::S,	IN::S,	IN::F,	IN::F,	IN::F,	IN::F,	IN::F,\
 	IN::F,	IN::F,	IN::F,	IN::F,	IN::F,	IN::F,	IN::F,	IN::F,	IN::F,	IN::F,	IN::F,	IN::F,	IN::F,	IN::F,	IN::F,	IN::F,\
 	IN::S,	IN::F,	IN::F,	IN::F,	IN::F,	IN::T,	IN::F,	IN::Q,	IN::B,	IN::B,	IN::V,	IN::V,	IN::B,	IN::V,	IN::F,	IN::V,\
-	IN::T,	IN::T,	IN::T,	IN::T,	IN::T,	IN::T,	IN::T,	IN::T,	IN::T,	IN::T,	IN::F,	IN::B,	IN::F,	IN::V,	IN::F,	IN::F,\
+	IN::T,	IN::T,	IN::T,	IN::T,	IN::T,	IN::T,	IN::T,	IN::T,	IN::T,	IN::T,	IN::F,	IN::B,	IN::V,	IN::V,	IN::V,	IN::F,\
 	IN::F,	IN::F,	IN::F,	IN::T,	IN::F,	IN::F,	IN::F,	IN::F,	IN::F,	IN::F,	IN::F,	IN::F,	IN::T,	IN::F,	IN::F,	IN::F,\
 	IN::F,	IN::F,	IN::F,	IN::T,	IN::F,	IN::F,	IN::F,	IN::F,	IN::F,	IN::F,	IN::F,	IN::B,	IN::F,	IN::B,	IN::F,	IN::F,\
 	IN::F,	IN::T,	IN::T,	IN::T,	IN::T,	IN::T,	IN::T,	IN::T,	IN::T,	IN::T,	IN::T,	IN::T,	IN::T,	IN::T,	IN::T,	IN::T,\

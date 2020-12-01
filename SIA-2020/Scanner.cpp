@@ -108,7 +108,11 @@ namespace Scanner
 			else
 			{
 				AnalysisItString(&tempIT, j, words);
-				if ((strcmp(lex, "stringLen")==0) || (strcmp(lex, "lexStrCmp") == 0))AddID(lex, &table, tempIT);
+				
+				if ((strcmp(lex, "stringLen") == 0) || (strcmp(lex, "lexStrCmp") == 0))
+				{
+					if (IT::IsId(table.idenTable, lex) == TI_NULLIDX)AddID(lex, &table, tempIT);
+				}
 				LT::Add(table.lexTable, AddLex(j, words, -2, &table.idenTable));
 			}
 			words->arr.pop_front();
@@ -127,6 +131,7 @@ namespace Scanner
 			strcpy_s(tempIT.id, token);
 		else
 			strcpy_s(tempIT.id, "-");
+
 		tempIT.idxfirstLE = tables->lexTable.size-1;
 		strcpy_s(tempIT.parrentBlock, block.top());
 		
@@ -156,10 +161,11 @@ namespace Scanner
 			else
 			{
 				strcpy(tempIT.value.vstr.str, token);
-				tempIT.value.vstr.len = atoi(token);
+				tempIT.value.vstr.len = strlen(token);
 			}
 			break;
 		}
+
 		}
 		IT::Add(tables->idenTable, tempIT);
 		if (tempIT.idtype == IT::F && (strcmp(tempIT.id, "stringLen") != 0) && (strcmp(tempIT.id, "lexStrCmp") != 0))
@@ -171,6 +177,7 @@ namespace Scanner
 	{
 		switch (lexem[0])
 		{
+		
 		case LEX_OPEN_PROC:
 		case LEX_CLOSE_PROC:
 		case LEX_COMMA:
@@ -196,7 +203,8 @@ namespace Scanner
 			}
 			return LEX_SEMICOLON;
 		}
-
+		case LEX_LESS:
+		case LEX_MORE:
 		case LEX_MODULO:
 		case LEX_PLUS:
 		case LEX_MINUS:
@@ -247,7 +255,6 @@ namespace Scanner
 		case LEX_STRLEN:
 		{
 			tempIT->idtype = IT::IDTYPE::F;
-			strcpy_s(tempIT->id, "strLen");
 			strcpy_s(tempIT->parrentBlock, TI_BLOCK_DEFAULT);
 			tempIT->iddatatype = IT::IDDATATYPE::INT;
 			break;	
@@ -355,11 +362,13 @@ namespace Scanner
 
 		switch (refID)
 		{
+
 		case LT_TI_NULLXDX:
 		{
 			temp.idxTI = idenTable->size;
 			break;
 		}
+
 		case -2:
 		{
 			temp.idxTI = LT_TI_NULLXDX;
@@ -371,7 +380,9 @@ namespace Scanner
 			temp.idxTI = refID;
 			break;
 		}
+
 		}
+		
 		if (temp.lexema == LEX_ARITHMETIC)temp.idxTI = idenTable->size - 1;
 		return temp;
 	}

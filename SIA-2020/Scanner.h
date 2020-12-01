@@ -15,9 +15,6 @@
 				tables->idenTable.table[tables->lexTable.table[tables->lexTable.size-1].idxTI].idtype==IT::F &&\
 				tables->lexTable.table[tables->lexTable.size-2].lexema==LEX_PROC
 
-//#define LIBFOO tables->lexTable.table[tables->lexTable.size-1].lexema == LEX_ID && tables->lexTable.table[tables->lexTable.size-2].lexema == LEX_PROC &&\
-//			   tables->lexTable.table[tables->lexTable.size-3].lexema == LEX_TYPE && tables->lexTable.table[tables->lexTable.size-4].lexema == LEX_CREATE
-
 #define LIBFOO table.lexTable.table[table.lexTable.size-3].lexema == LEX_STRLEN || table.lexTable.table[table.lexTable.size-3].lexema == LEX_STRCMP || table.lexTable.table[table.lexTable.size-5].lexema == LEX_STRCMP
 
 
