@@ -56,7 +56,7 @@ namespace IT	// таблица идентификатов
 
 	int IsId(IdTable& idtable, char* id);
 
-
+	void ShowTable(IdTable& idtable);
 
 	void Delete(IdTable& idtable);		//удалить таблицу лексем (освободить память)
 	Entry GetEntry(IdTable& idtable, int n);

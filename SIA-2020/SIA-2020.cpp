@@ -29,26 +29,35 @@ int wmain(int argc, wchar_t* argv[])
 		MFST_TRACE_START(log);								
 		MFST::Mfst mfst(tables, GRB::getGreibach());	
 		mfst.start(log);
+		mfst.savededucation();
+		mfst.printrules(log);
 		Log::Close(log);
 
 		//-------------------------
-		tables.idenTable.writeIT(param.in);
-		tables.lexTable.writeLT(param.in);
 
 		//-------SEMANTIC ANALYSE----
 
 		Semantic::SemanticAnalysis(&tables);
 
 		//---------------------------
-
+		
 		//-------POLISH NOTATION---
 
-		//PN::PolishNotation(tables);
+		PN::PolishNotation(tables);
 
 		//-------------------------
 		
+		//-------CODE GENERATION
 
+		
+		Generation::CodeGeneration(tables);
+		
 
+		//-------CODE GENERATION
+		
+		tables.idenTable.writeIT(param.in);
+		tables.lexTable.writeLT(param.in);
+		IT::ShowTable(tables.idenTable);
 		LT::Delete(tables.lexTable);
 		IT::Delete(tables.idenTable);
 	}

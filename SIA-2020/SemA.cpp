@@ -45,7 +45,6 @@ namespace Semantic
 								if (tables->lexTable.table[i + j + 1].lexema != LEX_LEFTHESIS)
 								{
 									throw ERROR_THROW_IN(SEM_ERROR_SIRES + 2, tables->lexTable.table[i + j].sn, 0);									// bad call func
-
 								}
 
 								int countOfHesis = 0;
@@ -76,7 +75,7 @@ namespace Semantic
 						if (tables->lexTable.table[i + index].lexema == LEX_LESS || tables->lexTable.table[i + index].lexema == LEX_MORE)
 						{
 							throw ERROR_THROW_IN(SEM_ERROR_SIRES + 4, tables->lexTable.table[i + index].sn, 0);
-						}					// using >< in expre without if
+						}					// using >< in expr without if
 
 						if (tables->lexTable.table[i + index].lexema == LEX_LITERAL || tables->lexTable.table[i + index].lexema == LEX_ID || tables->lexTable.table[i + index].lexema == LEX_STRCMP || tables->lexTable.table[i + index].lexema == LEX_STRLEN)
 						{

@@ -4,16 +4,16 @@ num proc ex(num x, num y)
 	create word lee;
 	lee = 'Hello world!';
 	z = stringLen(lee);
-	z=(x+y)/2;
+	z=(x+y)*5;
 	out z;
 ];
 
-word proc false(num qwe)
+num proc false(num qwe)
 [
 	outStream qwe;
 	create word hay;
-	hay = 'heselhoff';
-	out hay;
+	qwe = qwe+2;
+	out qwe;
 ];
 
 entry
@@ -23,18 +23,20 @@ entry
 	create word foo;
 	create num lee;
 	who = 'Hello world!';
-	if(koo < 4)
+	koo = 5;
+
+	if(koo > 4)
 	{
 		outStream 'Yes';
+		koo = 4;
 		lee = lexStrCmp(who, foo);
 	}
 	else
 	{
 		outStream 'No';
 	}
-	foo = 'Всем гл';
 	koo = ex(1,4);
-	foo = false(koo);
+	koo = false(koo);
 	lee = stringLen(foo);
 	lee = lexStrCmp(who, foo);
 	outStream lee;

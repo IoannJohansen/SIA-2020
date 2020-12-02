@@ -19,4 +19,5 @@
 #include <ctime>
 #include <fstream>
 #include "SemA.h"
+#include "CodeGeneration.h"
 using namespace std;
