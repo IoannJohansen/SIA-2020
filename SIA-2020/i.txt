@@ -12,10 +12,10 @@ num proc ex(num x, num y)
 
 word proc false(num qwe)
 [
-out qwe;
-create word hay;
-hay = 'heselhoff';
-out hay;
+	out qwe;
+	create word hay;
+	hay = 'heselhoff';
+	out hay;
 ];
 
 entry
@@ -28,6 +28,7 @@ entry
 	if(5 < 4)
 	{
 		outStream 'Yes';
+		lee = lexStrCmp(who, foo);
 	}
 	else
 	{

@@ -40,6 +40,8 @@ namespace PN
 		{
 			switch (pos.express[i].lexema)
 			{
+				case LEX_STRCMP:
+				case LEX_STRLEN:
 				case LEX_ID:
 				case LEX_LITERAL:
 				{

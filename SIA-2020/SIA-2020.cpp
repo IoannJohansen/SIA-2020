@@ -19,8 +19,6 @@ int wmain(int argc, wchar_t* argv[])
 		
 		Scanner::Words* words = Scanner::TextDivision(in);
 		Scanner::Tables tables = Scanner::GetTables(words);
-		tables.idenTable.writeIT(param.in);
-		tables.lexTable.writeLT(param.in);
 
 		//-------------------------
 
@@ -38,16 +36,18 @@ int wmain(int argc, wchar_t* argv[])
 
 		//-------POLISH NOTATION---
 
-		//PN::PolishNotation(tables);
+		PN::PolishNotation(tables);
 
 		//-------------------------
 
 		
+		tables.idenTable.writeIT(param.in);
+		tables.lexTable.writeLT(param.in);
+		LT::Delete(tables.lexTable);
+		IT::Delete(tables.idenTable);
 		
 		
 
-		LT::Delete(tables.lexTable);
-		IT::Delete(tables.idenTable);
 	}
 	catch (Error::ERROR e) 
 	{

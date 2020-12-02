@@ -108,12 +108,26 @@ namespace Scanner
 			else
 			{
 				AnalysisItString(&tempIT, j, words);
-				
 				if ((strcmp(lex, "stringLen") == 0) || (strcmp(lex, "lexStrCmp") == 0))
 				{
-					if (IT::IsId(table.idenTable, lex) == TI_NULLIDX)AddID(lex, &table, tempIT);
+					int k = IT::IsId(table.idenTable, lex);
+					if (k == TI_NULLIDX)
+					{
+						AddID(lex, &table, tempIT);
+						LT::Add(table.lexTable, AddLex(j, words, table.idenTable.size-1, &table.idenTable));
+						
+					}
+					else
+					{
+						LT::Add(table.lexTable, AddLex(j, words, k, &table.idenTable));
+
+					}
 				}
-				LT::Add(table.lexTable, AddLex(j, words, -2, &table.idenTable));
+				else
+				{
+					LT::Add(table.lexTable, AddLex(j, words, -2, &table.idenTable));
+
+				}
 			}
 			words->arr.pop_front();
 		}
