@@ -12,7 +12,7 @@
 
 namespace IT	// таблица идентификатов
 {
-	enum IDDATATYPE { INT = 1, STR = 2 };	//типы данных идентификаторов: integer, string
+	enum IDDATATYPE { DEF = 0, INT = 1, STR = 2 };	//типы данных идентификаторов: integer, string
 	enum IDTYPE { V = 1, F = 2, P = 3, L = 4 };		//типы идентификаторов: переменная, функция, параметр, литерал
 	struct Entry	//строка таблицы идентификаторов
 	{

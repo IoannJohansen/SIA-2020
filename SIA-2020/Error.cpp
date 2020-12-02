@@ -57,8 +57,6 @@ namespace Error
 		ERROR_ENTRY_NODEF100(400),
 		ERROR_ENTRY_NODEF100(500),
 
-		//------------------LEXICAL ANALYSIS 
-
 
 		//------------------SYNTAX ANALYSIS 	( 600 - 699 )
 
@@ -78,17 +76,27 @@ namespace Error
 
 		//------------------SEMANTIC ANALYSIS 	( 600 - 699 )
 
-		ERROR_ENTRY_NODEF(700),
-		ERROR_ENTRY_NODEF(701),
-		ERROR_ENTRY_NODEF(702),
-		ERROR_ENTRY_NODEF(703),
-		ERROR_ENTRY_NODEF(704),
-		ERROR_ENTRY_NODEF(705),
-		ERROR_ENTRY_NODEF(706),
-		ERROR_ENTRY_NODEF(707),
-		ERROR_ENTRY_NODEF(708),
-		ERROR_ENTRY_NODEF(709),
-		ERROR_ENTRY_NODEF10(710), ERROR_ENTRY_NODEF10(720), ERROR_ENTRY_NODEF10(730),
+		ERROR_ENTRY(700, "[SEMANTIC ANALYSIS] Идентификатор не является левосторонним выражением"),
+		ERROR_ENTRY(701, "[SEMANTIC ANALYSIS] Оператор не перегружен для работы со строками"),
+		ERROR_ENTRY(702, "[SEMANTIC ANALYSIS] В вызове функции отсутствуют скруглые скобки ()"),
+		ERROR_ENTRY(703, "[SEMANTIC ANALYSIS] Несоответствие типов в выражении"),
+		ERROR_ENTRY(704, "[SEMANTIC ANALYSIS] Ошибка в выражении"),
+		ERROR_ENTRY(705, "[SEMANTIC ANALYSIS] Превышено максимальное кол-во параметров функции"),
+		ERROR_ENTRY(706, "[SEMANTIC ANALYSIS] Превышено максимальное кол-во функции"),
+		ERROR_ENTRY(707, "[SEMANTIC ANALYSIS] Несоответствие формальных и фактических параметров функции"),
+		ERROR_ENTRY(708, "[SEMANTIC ANALYSIS] Несоответствие формальных и фактических параметров встроенной функции"),
+		ERROR_ENTRY(709, "[SEMANTIC ANALYSIS] Тип возвращаемого значения не соответствует типу функции"),
+		ERROR_ENTRY(710, "[SEMANTIC ANALYSIS] В функции отсутствует возвращаемое значение"),
+		ERROR_ENTRY(711, "[SEMANTIC ANALYSIS] Превышено максимальное значение int (4 byte)"),
+		ERROR_ENTRY_NODEF(712),
+		ERROR_ENTRY_NODEF(713),
+		ERROR_ENTRY_NODEF(714),
+		ERROR_ENTRY_NODEF(715),
+		ERROR_ENTRY_NODEF(716),
+		ERROR_ENTRY_NODEF(717),
+		ERROR_ENTRY_NODEF(718),
+		ERROR_ENTRY_NODEF(719),
+		ERROR_ENTRY_NODEF10(720), ERROR_ENTRY_NODEF10(730),
 		ERROR_ENTRY_NODEF10(740), ERROR_ENTRY_NODEF10(750), ERROR_ENTRY_NODEF10(760),
 		ERROR_ENTRY_NODEF10(770), ERROR_ENTRY_NODEF10(780), ERROR_ENTRY_NODEF10(790),
 		ERROR_ENTRY_NODEF100(800),ERROR_ENTRY_NODEF100(900)

@@ -32,22 +32,25 @@ int wmain(int argc, wchar_t* argv[])
 		Log::Close(log);
 
 		//-------------------------
+		tables.idenTable.writeIT(param.in);
+		tables.lexTable.writeLT(param.in);
 
+		//-------SEMANTIC ANALYSE----
+
+		Semantic::SemanticAnalysis(&tables);
+
+		//---------------------------
 
 		//-------POLISH NOTATION---
 
-		PN::PolishNotation(tables);
+		//PN::PolishNotation(tables);
 
 		//-------------------------
-
 		
-		tables.idenTable.writeIT(param.in);
-		tables.lexTable.writeLT(param.in);
+
+
 		LT::Delete(tables.lexTable);
 		IT::Delete(tables.idenTable);
-		
-		
-
 	}
 	catch (Error::ERROR e) 
 	{

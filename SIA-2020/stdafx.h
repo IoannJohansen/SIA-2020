@@ -18,4 +18,5 @@
 #include<iomanip>
 #include <ctime>
 #include <fstream>
+#include "SemA.h"
 using namespace std;

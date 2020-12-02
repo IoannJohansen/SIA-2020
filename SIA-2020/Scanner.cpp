@@ -132,6 +132,7 @@ namespace Scanner
 			words->arr.pop_front();
 		}
 		if (!flMain)throw ERROR_THROW(124);
+		cout << "Lexical analysis is done" << endl;
 		return table;
 	}
 	void AddID(char* token, Tables* tables, IT::Entry tempIT)

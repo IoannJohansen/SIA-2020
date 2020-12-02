@@ -14,6 +14,7 @@ namespace PN
 				ShiftAndWriteLT(tables, &pos, Convertation(pos, &tables.idenTable));
 			}
 		}
+		cout << "Polish notation is done" << endl;
 	}
 
 	void GetExrp(LT::LexTable lexTable, Pos& pos)

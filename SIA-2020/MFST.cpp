@@ -180,14 +180,14 @@ namespace MFST
 		{
 		case LENTA_END:
 			MFST_TRACE4("------->LENTA_END", log);
-			std::cout << std::setfill('-') << std::setw(100) << ' ' << std::setfill(' ') << std::endl;
+			*(log.stream) << std::setfill('-') << std::setw(100) << ' ' << std::setfill(' ') << std::endl;
 			sprintf_s(buf, MFST_DIAGN_MAXSIZE, "%d: всего строк %d, синтаксический анализ выполнен без ошибок", 0, lenta_size);
-			std::cout << buf << std::endl;
+			*(log.stream) << buf << std::endl;
 			rc = true;
 			break;
 		case NS_NORULE:
 			MFST_TRACE4("------>NS_NORULE", log);
-			std::cout << std::setfill('-') << std::setw(100) << ' ' << std::setfill(' ') << std::endl;
+			*(log.stream) << std::setfill('-') << std::setw(100) << ' ' << std::setfill(' ') << std::endl;
 			throw getDiagnosis(buf);
 			break;
 		case NS_NORULECHAIN:
