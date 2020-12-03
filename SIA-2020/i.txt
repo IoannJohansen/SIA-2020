@@ -23,12 +23,12 @@ entry
 	create word foo;
 	create num lee;
 	who = 'Hello world!';
-	koo = 5;
+	koo = 14;
 
 	if(koo > 4)
 	{
 		outStream 'Yes';
-		koo = 4;
+		koo = 5;
 		lee = lexStrCmp(who, foo);
 	}
 	else

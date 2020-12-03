@@ -21,7 +21,7 @@ namespace IT	// таблица идентификатов
 		char		id[ID_MAXSIZE+1];		//идентификатор (автоматически усекается до ID_MAXSIZE)
 		IDDATATYPE  iddatatype;		//тип данных
 		IDTYPE		idtype;		//тип идентификатора
-		union VALUE
+		struct VALUE
 		{
 			int vint = NULL;	//значение integer 
 			struct

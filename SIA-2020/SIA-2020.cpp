@@ -38,6 +38,7 @@ int wmain(int argc, wchar_t* argv[])
 		//-------SEMANTIC ANALYSE----
 
 		Semantic::SemanticAnalysis(&tables);
+		IT::ShowTable(tables.idenTable);
 
 		//---------------------------
 		
@@ -49,7 +50,6 @@ int wmain(int argc, wchar_t* argv[])
 		
 		//-------CODE GENERATION
 
-		
 		Generation::CodeGeneration(tables);
 		
 
@@ -57,7 +57,6 @@ int wmain(int argc, wchar_t* argv[])
 		
 		tables.idenTable.writeIT(param.in);
 		tables.lexTable.writeLT(param.in);
-		IT::ShowTable(tables.idenTable);
 		LT::Delete(tables.lexTable);
 		IT::Delete(tables.idenTable);
 	}
