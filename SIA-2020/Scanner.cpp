@@ -7,6 +7,7 @@ namespace Scanner
 	bool flPar = false;
 	bool libFoo = false;
 	bool flMain = false;
+	int countLiteral = 0;
 
 	Words* TextDivision(In::IN in)
 	{
@@ -115,7 +116,6 @@ namespace Scanner
 					{
 						AddID(lex, &table, tempIT);
 						LT::Add(table.lexTable, AddLex(j, words, table.idenTable.size-1, &table.idenTable));
-						
 					}
 					else
 					{
@@ -145,7 +145,10 @@ namespace Scanner
 		if (tempIT.idtype != IT::L)
 			strcpy_s(tempIT.id, token);
 		else
-			strcpy_s(tempIT.id, "-");
+		{
+			sprintf(tempIT.id, "L%d", countLiteral);
+			countLiteral++;
+		}
 
 		tempIT.idxfirstLE = tables->lexTable.size-1;
 		strcpy_s(tempIT.parrentBlock, block.top());
@@ -192,7 +195,8 @@ namespace Scanner
 	{
 		switch (lexem[0])
 		{
-		
+		case LEX_LESS:
+		case LEX_MORE:
 		case LEX_OPEN_PROC:
 		case LEX_CLOSE_PROC:
 		case LEX_COMMA:
@@ -218,8 +222,7 @@ namespace Scanner
 			}
 			return LEX_SEMICOLON;
 		}
-		case LEX_LESS:
-		case LEX_MORE:
+		
 		case LEX_MODULO:
 		case LEX_PLUS:
 		case LEX_MINUS:

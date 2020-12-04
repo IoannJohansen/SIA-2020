@@ -17,13 +17,19 @@ int wmain(int argc, wchar_t* argv[])
 
 		//-------LEX ANALYSE-------
 		
+		//TODO: delete <> from LEX_ARITHMETIC					|	+
+		//TODO: add to name of literals - L[#lit]				|	+
+		//TODO: add to name of id - name of parrent block		|	
+
 		Scanner::Words* words = Scanner::TextDivision(in);
 		Scanner::Tables tables = Scanner::GetTables(words);
 
 		//-------------------------
 
 
-		//-------SYNTAX ANALYSE----
+		//-------SYNTAX ANALYSE----								
+		//TODO: fix chanes with literals and less|more|<>		|	+
+
 
 		log = Log::getlog(param.sin);
 		MFST_TRACE_START(log);								
@@ -34,11 +40,17 @@ int wmain(int argc, wchar_t* argv[])
 		Log::Close(log);
 
 		//-------------------------
-
+		
 		//-------SEMANTIC ANALYSE----
 
+		// TODO: add processing of right sequence with outStream		|	+
+		// TODO: add processing of right sequence of block IF-ELSE		|	+
+		// TODO: add processing of according of libFoo's and variables	|	+
+		// TODO: add processing of value for return in procedures		|	+
+		// TODO: fix processing of value for out from entry				|	+
+		
 		Semantic::SemanticAnalysis(&tables);
-		IT::ShowTable(tables.idenTable);
+		
 
 		//---------------------------
 		
@@ -54,7 +66,7 @@ int wmain(int argc, wchar_t* argv[])
 		
 
 		//-------CODE GENERATION
-		
+		IT::ShowTable(tables.idenTable);
 		tables.idenTable.writeIT(param.in);
 		tables.lexTable.writeLT(param.in);
 		LT::Delete(tables.lexTable);

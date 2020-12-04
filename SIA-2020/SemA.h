@@ -27,6 +27,7 @@ namespace Semantic
 	bool isEqual(Entry& entry1, Entry& entry2);
 	void CheckBuiltInFunParam(LT::LexTable& lextable, IT::IdTable& idtable);
 	void CheckForReturnType(LT::LexTable& lextable, IT::IdTable& idtable);
+	void CheckCondAndStreams(LT::LexTable& lextable, IT::IdTable& idtable);
 
 
 

@@ -6,6 +6,7 @@ namespace Semantic
 	{
 		Functions functions = Create(255);
 		CheckTypesMapping(tables);
+		CheckCondAndStreams(tables->lexTable, tables->idenTable);
 		FillFunction(functions, tables->idenTable);
 		CheckFuncitionParams(functions, *tables);
 		CheckBuiltInFunParam(tables->lexTable, tables->idenTable);
@@ -14,10 +15,11 @@ namespace Semantic
 	}
 
 	void CheckTypesMapping(Scanner::Tables* tables)
-	{
+	{	
+
 		for (int i = 0; i < tables->lexTable.size; i++)
 		{
-			if (tables->lexTable.table[i].lexema == LEX_EQUAL_SIGN)
+			if (tables->lexTable.table[i].lexema==LEX_EQUAL_SIGN)
 			{
 				if (tables->idenTable.table[tables->lexTable.table[i - 1].idxTI].idtype != IT::V && tables->idenTable.table[tables->lexTable.table[i - 1].idxTI].idtype != IT::P)throw ERROR_THROW_IN(SEM_ERROR_SIRES + 0, tables->lexTable.table[i - 1].sn, 0);		// bad lvalue
 
@@ -34,7 +36,8 @@ namespace Semantic
 						{
 							throw ERROR_THROW_IN(SEM_ERROR_SIRES + 1, tables->lexTable.table[i + j].sn, 0);
 						}
-						if (tables->lexTable.table[i + j].lexema == LEX_ID || tables->lexTable.table[i + j].lexema == LEX_LITERAL)
+
+						if (tables->lexTable.table[i + j].lexema == LEX_ID || tables->lexTable.table[i + j].lexema == LEX_LITERAL || tables->lexTable.table[i + j].lexema == LEX_STRCMP || tables->lexTable.table[i + j].lexema == LEX_STRLEN)//!
 						{
 							if (tables->idenTable.table[tables->lexTable.table[i + j].idxTI].idtype == IT::F)
 							{
@@ -44,7 +47,7 @@ namespace Semantic
 								}
 								if (tables->lexTable.table[i + j + 1].lexema != LEX_LEFTHESIS)
 								{
-									throw ERROR_THROW_IN(SEM_ERROR_SIRES + 2, tables->lexTable.table[i + j].sn, 0);									// bad call func
+									throw ERROR_THROW_IN(SEM_ERROR_SIRES + 2, tables->lexTable.table[i + j].sn, 0);									// bad call of func
 								}
 
 								int countOfHesis = 0;
@@ -61,7 +64,7 @@ namespace Semantic
 							else if (tables->idenTable.table[tables->lexTable.table[i + j].idxTI].iddatatype != type)
 							{
 								throw ERROR_THROW_IN(SEM_ERROR_SIRES + 3, tables->lexTable.table[i + j].sn, 0);
-							}										 // Unaccording types in expr
+							}			// Unaccording types in expr
 						}
 					}
 					break;
@@ -126,6 +129,7 @@ namespace Semantic
 					}
 					break;
 				}
+
 				}
 			}
 		}
@@ -221,7 +225,7 @@ namespace Semantic
 	{
 		for (int i = 0; i < idtable.size; i++)
 		{
-			if (idtable.table[i].idtype == IT::IDTYPE::F)
+			if ((idtable.table[i].idtype == IT::IDTYPE::F)&&(lextable.table[idtable.table[i].idxfirstLE-1].lexema==LEX_PROC))
 			{
 				bool isReturn = false;
 				for (int j = 1; j + idtable.table[i].idxfirstLE < lextable.size; j++)
@@ -237,6 +241,104 @@ namespace Semantic
 				}
 				if (!isReturn)
 					throw ERROR_THROW_IN(SEM_ERROR_SIRES+10, lextable.table[idtable.table[i].idxfirstLE].sn, 0);
+			}
+		}
+
+		for (int i = 0; i < lextable.size; i++)
+		{
+			if (lextable.table[i].lexema == LEX_ENTRY)
+			{
+				int index = 1;
+				while (lextable.table[i+index].lexema != LEX_CLOSE_PROC)
+				{
+					if (lextable.table[i + index].lexema == LEX_OUT)
+					{
+						if (idtable.table[lextable.table[i+index+1].idxTI].iddatatype != IT::INT)throw ERROR_THROW_IN(SEM_ERROR_SIRES + 14, lextable.table[i].sn, 0);
+					}
+					index++;
+				}
+			}
+		}
+	}
+
+	void CheckCondAndStreams(LT::LexTable& lextable, IT::IdTable& idtable)
+	{
+		for (int i = 0; i < lextable.size; i++)
+		{
+			if (lextable.table[i].lexema == LEX_OUTSTREAM)				// check for sense of chain with outStream token
+			{
+				if (lextable.table[i + 1].lexema == LEX_LEFTHESIS)
+				{
+					int countOps = 0;
+					int brBalance = 0;
+					while (lextable.table[i].lexema != LEX_SEMICOLON)
+					{
+						i++;
+						switch (lextable.table[i].lexema)
+						{
+
+						case LEX_LITERAL:
+						case LEX_ID:
+						{
+							if (countOps == 1)throw ERROR_THROW_IN(SEM_ERROR_SIRES + 12, lextable.table[i].sn, 0);
+							countOps++;
+							break;
+						}
+
+						case LEX_LEFTHESIS:
+						{
+							brBalance++;
+							break;
+						}
+
+						case LEX_RIGHTHESIS:
+						{
+							brBalance--;
+							if (lextable.table[i + 1].lexema == LEX_SEMICOLON && brBalance != 0)throw ERROR_THROW_IN(SEM_ERROR_SIRES + 12, lextable.table[i].sn, 0);
+							break;
+						}
+
+						default:
+						{
+							if (lextable.table[i].lexema == LEX_SEMICOLON)break;
+							throw ERROR_THROW_IN(SEM_ERROR_SIRES + 12, lextable.table[i].sn, 0);
+						}
+
+						}
+					}
+				}
+				else
+					throw ERROR_THROW_IN(SEM_ERROR_SIRES + 12, lextable.table[i].sn, 0);
+
+			}
+		
+			if (lextable.table[i].lexema == LEX_IF)	// check for right sense of chain with if-else block
+			{
+				int countOps=0,countBr=0;
+				while (lextable.table[i].lexema != LEX_SEMICOLON && lextable.table[i].lexema != LEX_LEFTBRACE)
+				{
+					i++;
+					switch (lextable.table[i].lexema)
+					{
+
+					case LEX_RIGHTHESIS:
+					case LEX_LEFTHESIS:
+					{
+						if (countBr > 2)throw ERROR_THROW_IN(SEM_ERROR_SIRES + 13, lextable.table[i].sn, 0);
+						countBr++;
+						break;
+					}
+
+					case LEX_ID:
+					case LEX_LITERAL:
+					{
+						if ((countOps > 2)||(idtable.table[lextable.table[i].idxTI].iddatatype!=IT::INT))throw ERROR_THROW_IN(SEM_ERROR_SIRES + 13, lextable.table[i].sn, 0);
+						countOps++;
+						break;
+					}
+
+					}
+				}
 			}
 		}
 	}
@@ -267,8 +369,6 @@ namespace Semantic
 		else
 			return false;
 	}
-
-
 
 
 }

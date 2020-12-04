@@ -60,6 +60,7 @@ namespace Error
 
 		//------------------SYNTAX ANALYSIS 	( 600 - 699 )
 
+		//TODO: fill err msg and def 
 		ERROR_ENTRY(600, "[SYNTAX_ANALYSIS] Неверная структура программы"),								  //+
 		ERROR_ENTRY(601, "[SYNTAX_ANALYSIS] Ошибочный оператор"),										  //+
 		ERROR_ENTRY(602, "[SYNTAX_ANALYSIS] Ошибка в выражении"),										  //+
@@ -87,10 +88,10 @@ namespace Error
 		ERROR_ENTRY(708, "[SEMANTIC ANALYSIS] Несоответствие формальных и фактических параметров встроенной функции"),
 		ERROR_ENTRY(709, "[SEMANTIC ANALYSIS] Тип возвращаемого значения не соответствует типу функции"),
 		ERROR_ENTRY(710, "[SEMANTIC ANALYSIS] В функции отсутствует возвращаемое значение"),
-		ERROR_ENTRY(711, "[SEMANTIC ANALYSIS] Превышено максимальное значение int (4 byte)"),
-		ERROR_ENTRY_NODEF(712),
-		ERROR_ENTRY_NODEF(713),
-		ERROR_ENTRY_NODEF(714),
+		ERROR_ENTRY(711, "[SEMANTIC ANALYSIS] Превышено максимальное значение int (4 byte)"),						// 
+		ERROR_ENTRY(712, "[SEMANTIC ANALYSIS] Неверное выражение с outStream"),										//	+
+		ERROR_ENTRY(713, "[SEMANTIC ANALYSIS] Неверное выражение в блоке if"),										//	+
+		ERROR_ENTRY(714, "[SEMANTIC ANALYSIS] Главная функция entry может возвращать только значение типа INT"),	//	+
 		ERROR_ENTRY_NODEF(715),
 		ERROR_ENTRY_NODEF(716),
 		ERROR_ENTRY_NODEF(717),
