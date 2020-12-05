@@ -40,7 +40,7 @@ namespace IT
 		int val = atoi(literal);
 		for (int i = 0; i < idtable.size; i++)
 		{
-			if (!strcmp(idtable.table[i].id, "-") && (!strcmp(idtable.table[i].parrentBlock, block)))
+			if (/*!strcmp(idtable.table[i].id, "-") && */(!strcmp(idtable.table[i].parrentBlock, block)))
 			{
 				if (type == IT::INT && (idtable.table[i].value.vint == val)) return i;
 				else if (type == IT::STR && (!strcmp(idtable.table[i].value.vstr.str, literal))) return i;

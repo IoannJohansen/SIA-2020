@@ -1,44 +1,6 @@
-word proc ex(num x, num y)
-[
-	create num z;
-	create word lee;
-	lee = 'Hello world!';
-	z=(x+y)*5;
-	out lee;
-];
-
-num proc false(num qwe)
-[
-	outStream (qwe);
-	qwe = 2147483647;
-	create word hay;
-	qwe = qwe+2/123;
-	hay = '123';
-	out qwe;
-];
-
 entry
 [
-	create num koo;
-	create word who;
-	create word foo;
-	create num lee;
-	who = 'Hello world!';
-	koo = 14+false(123);
-
-	if(koo < 5)
-	{
-		outStream (who);	
-	}
-	else
-	{
-		outStream (foo);
-	};
-
-	who = ex(1,2);
-	koo = stringLen(foo);
-	koo = lexStrCmp(who, foo);
-	outStream (foo);
-	outStream (koo);
-	out koo;
+	outStream('Hello world!');
+	create num hay;
+	out 1;
 ];

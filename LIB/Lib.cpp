@@ -3,7 +3,6 @@
 
 extern "C"
 {
-
 	int __stdcall stringLen(char* source)
 	{
 		int result = 0;

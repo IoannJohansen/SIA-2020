@@ -2,13 +2,41 @@
 	.model flat, stdcall
 	includelib libucrt.lib
 	includelib kernel32.lib
-	includelib ..\Debug\Lib.lib
+	includelib ..\Debug\LIB.lib
 	ExitProcess PROTO :DWORD
 
-	readw PROTO: DWORD
-	readr PROTO: DWORD
-	strln PROTO: DWORD
-	Strcmp PROTO: DWORD, :DWORD
+outStreamW PROTO: DWORD
+outStreamN PROTO: DWORD
+stringLen PROTO: DWORD
+lexStrCmp PROTO: DWORD, :DWORD
 .stack 4096
-.const
-Hello wordl!	L0	L1	L2	L3	L4	L5	L6	L7	L8	L9	L10	L11
+.CONST
+	null_division BYTE 'ERROR: DIVISION BY ZERO', 0
+	OVER_FLOW BYTE 'ERROR: OVERFLOW', 0
+	L0 BYTE 'Hello world!', 0
+	L1 DWORD 1
+.DATA
+	hayMAIN DWORD 0
+.CODE
+main PROC
+
+push offset L0
+call outStreamW
+	push 1
+		jmp theend
+theend:
+
+	push 0
+	call ExitProcess
+SOMETHINGWRONG::
+	push offset null_division
+	call outStreamW
+jmp konec
+overflow::
+	push offset OVER_FLOW
+	call outStreamW
+konec:
+	push -1
+	call ExitProcess
+main ENDP
+end main
