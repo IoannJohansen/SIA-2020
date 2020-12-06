@@ -40,10 +40,10 @@ namespace IT
 		int val = atoi(literal);
 		for (int i = 0; i < idtable.size; i++)
 		{
-			if (/*!strcmp(idtable.table[i].id, "-") && */(!strcmp(idtable.table[i].parrentBlock, block)))
+			if (idtable.table[i].id[0]=='L' && (!strcmp(idtable.table[i].parrentBlock, block)))
 			{
-				if (type == IT::INT && (idtable.table[i].value.vint == val)) return i;
-				else if (type == IT::STR && (!strcmp(idtable.table[i].value.vstr.str, literal))) return i;
+				if (idtable.table[i].iddatatype == IT::INT && (idtable.table[i].value.vint == val)) return i;
+				else if (idtable.table[i].iddatatype == IT::STR && (!strcmp(idtable.table[i].value.vstr.str, literal))) return i;
 			}
 		}
 		return TI_NULLIDX;

@@ -63,7 +63,6 @@ void Generation::CodeGeneration(Scanner::Tables& tables)
 		switch (tables.lexTable.table[i].lexema)
 		{
 
-
 			case LEX_PROC:			//+++
 			{
 				fout << '\t' << (funcName = tables.idenTable.table[tables.lexTable.table[++i].idxTI].id) << " PROC ";
@@ -101,7 +100,6 @@ void Generation::CodeGeneration(Scanner::Tables& tables)
 				fout << "main PROC\n";
 				break;
 			}
-
 			case LEX_OUT:			//+++
 			{
 				fout << "\tpush ";
@@ -126,7 +124,6 @@ void Generation::CodeGeneration(Scanner::Tables& tables)
 				}
 				break;
 			}
-
 			case LEX_EQUAL_SIGN:	//+++
 			{
 				int resPosition = i - 1;
@@ -381,6 +378,7 @@ void Generation::CodeGeneration(Scanner::Tables& tables)
 							stk.pop();
 							break;
 						}
+
 						default:
 							break;
 					}
@@ -395,7 +393,6 @@ void Generation::CodeGeneration(Scanner::Tables& tables)
 				ifI.push(numOfIf);
 				break;
 			}
-
 			case LEX_ELSE:			//+++		
 			{
 				flElse = true;
