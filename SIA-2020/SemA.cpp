@@ -11,6 +11,7 @@ namespace Semantic
 		CheckFuncitionParams(functions, *tables);
 		CheckBuiltInFunParam(tables->lexTable, tables->idenTable);
 		CheckForReturnType(tables->lexTable, tables->idenTable);
+		AddParrentBlockToId(tables->idenTable);
 		cout << "Semantic analysis done" << endl;
 	}
 
@@ -368,6 +369,17 @@ namespace Semantic
 		}
 		else
 			return false;
+	}
+
+	void AddParrentBlockToId(IT::IdTable& idenTable)
+	{
+		for (int i = 0; i < idenTable.size; i++)
+		{
+			if (idenTable.table[i].idtype!=IT::L && idenTable.table[i].idtype != IT::F && idenTable.table[i].idtype != IT::A)
+			{
+				strcat(idenTable.table[i].id, idenTable.table[i].parrentBlock);
+			}
+		}
 	}
 
 

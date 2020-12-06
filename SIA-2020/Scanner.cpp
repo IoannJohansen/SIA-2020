@@ -230,9 +230,10 @@ namespace Scanner
 		case LEX_DIRSLASH:
 		{
 			IT::Entry tempIT;
-			tempIT.id[0] = lexem[0];
-			tempIT.id[1] = '\0';
+			strcpy(tempIT.id, lexem);
 			tempIT.idxfirstLE = tables->lexTable.size;
+			tempIT.idtype = IT::IDTYPE::A;
+			tempIT.iddatatype = IT::IDDATATYPE::INT;
 			IT::Add(tables->idenTable, tempIT);
 			return LEX_ARITHMETIC;
 		}

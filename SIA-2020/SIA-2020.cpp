@@ -58,7 +58,7 @@ int wmain(int argc, wchar_t* argv[])
 		//-------------------------
 
 
-		IT::ShowTable(tables.idenTable);
+		IT::ShowTable(&tables.idenTable);
 		tables.idenTable.writeIT(param.in);
 		tables.lexTable.writeLT(param.in);
 		LT::Delete(tables.lexTable);

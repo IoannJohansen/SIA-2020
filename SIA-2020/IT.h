@@ -6,7 +6,7 @@
 #define TI_NULLIDX		-1				// нет элемента таблицы идентификаторов
 #define TI_STR_MAXSIZE	257
 #define TI_BLOCK_DEFAULT "GLOBAL"
-#define TI_BLOCK_MAIN	"MAIN"
+#define TI_BLOCK_MAIN	"ENTRY"
 #define PARM_ID_DEFAULT_EXT L".id.txt" //для файла с итогом лексического анализa(идентификаторы и литералы)
 
 
@@ -18,7 +18,7 @@ namespace IT	// таблица идентификатов
 	{
 		char parrentBlock[ID_MAXSIZE+1];	//!!!
 		int			idxfirstLE;		//индекс первой строки в таблице лексем
-		char		id[ID_MAXSIZE+1];		//идентификатор (автоматически усекается до ID_MAXSIZE)
+		char		id[2*ID_MAXSIZE];		//идентификатор (автоматически усекается до ID_MAXSIZE)
 		IDDATATYPE  iddatatype;		//тип данных
 		IDTYPE		idtype;		//тип идентификатора
 		struct VALUE
@@ -56,7 +56,7 @@ namespace IT	// таблица идентификатов
 
 	int IsId(IdTable& idtable, char* id);
 
-	void ShowTable(IdTable& idtable);
+	void ShowTable(IdTable* idtable);
 
 	void Delete(IdTable& idtable);		//удалить таблицу лексем (освободить память)
 	Entry GetEntry(IdTable& idtable, int n);

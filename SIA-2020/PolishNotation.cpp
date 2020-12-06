@@ -106,7 +106,7 @@ namespace PN
 								arr[j++].idxTI = ++countComma;
 								countComma = 0;
 							}
-						
+							break;
 						}
 						else if (pos.express[k].lexema == LEX_RIGHTHESIS)brBalance++;
 
@@ -173,7 +173,7 @@ namespace PN
 		for (int i = pos->startEx, j = 0; j < newLen; i++, j++)
 		{
 			tables.lexTable.table[i] = pos->express[j];
-			if (tables.lexTable.table[i].lexema == LEX_ID || tables.lexTable.table[i].lexema == LEX_LITERAL)
+			if (tables.lexTable.table[i].lexema == LEX_ID || tables.lexTable.table[i].lexema == LEX_LITERAL || tables.lexTable.table[i].lexema == LEX_STRCMP || tables.lexTable.table[i].lexema == LEX_STRLEN)
 			{
 				tables.idenTable.table[tables.lexTable.table[i].idxTI].idxfirstLE = i;
 			}
@@ -185,7 +185,7 @@ namespace PN
 			for (int k = pos->startEx+newLen; k < tables.lexTable.size; k++)
 			{
 				tables.lexTable.table[k] = tables.lexTable.table[k + 1];
-				if (tables.lexTable.table[k].lexema == LEX_ID || tables.lexTable.table[k].lexema == LEX_LITERAL)
+				if (tables.lexTable.table[k].lexema == LEX_ID || tables.lexTable.table[k].lexema == LEX_LITERAL || tables.lexTable.table[k].lexema == LEX_STRCMP || tables.lexTable.table[k].lexema == LEX_STRLEN)
 				{
 					tables.idenTable.table[tables.lexTable.table[k].idxTI].idxfirstLE = k;
 				}

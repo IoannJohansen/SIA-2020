@@ -235,16 +235,16 @@ namespace IT
 		delete idStream;
 	}
 
-	void ShowTable(IdTable& idtable)
+	void ShowTable(IdTable* idtable)
 	{
 		int i, numberOP = 0;
 		cout << setfill('-') << setw(87) << '-' << endl;
 		cout << "   №" << " | " << "Идентификатор" << " | " << "Тип данных" << " | " << "Тип идентификатора" << " | " << "Индекс в ТЛ" << " | " << "Значение    " << endl;
 		cout << setw(87) << '-' << endl;
-		for (i = 0; i < idtable.size; i++) {
+		for (i = 0; i < idtable->size; i++) {
 			cout << setfill(' ') << setw(4) << std::right << i << " | ";
-			cout << setw(13) << left << idtable.table[i].id << " | ";
-			switch (idtable.table[i].iddatatype) {
+			cout << setw(13) << left << idtable->table[i].id << " | ";
+			switch (idtable->table[i].iddatatype) {
 			case  IT::INT:
 			{
 				cout << setw(10) << left;
@@ -261,7 +261,9 @@ namespace IT
 				cout << setw(10) << left << "unknown" << " | "; break;
 			}
 
-			switch (idtable.table[i].idtype) {
+			switch (idtable->table[i].idtype) 
+			{
+
 			case IT::V:
 				cout << setw(18) << left << "переменная" << " | ";
 				break;
@@ -277,22 +279,21 @@ namespace IT
 			case IT::L:
 				cout << setw(18) << left << "литерал" << " | ";
 				break;
-
-			//case IDTYPE_ACT:
-			//	cout << setw(18) << left << "оператор" << " | ";
-			//	numberOP++;
-			//	break;
-
+			case IT::A:
+				cout << setw(18) << left << "Арифм. Оп." << " | ";
+				numberOP++;
+				break;
 			default:
 				cout << setw(18) << left << "unknown" << " | ";
 				break;
+
 			}
-			cout << setw(11) << left << idtable.table[i].idxfirstLE << " | ";
-			if (idtable.table[i].iddatatype == IT::INT && (idtable.table[i].idtype == IT::V || idtable.table[i].idtype == IT::L)) {
-				cout << setw(18) << left << idtable.table[i].value.vint;
+			cout << setw(11) << left << idtable->table[i].idxfirstLE << " | ";
+			if (idtable->table[i].iddatatype == IT::INT && (idtable->table[i].idtype == IT::V || idtable->table[i].idtype == IT::L)) {
+				cout << setw(18) << left << idtable->table[i].value.vint;
 			}
-			else if (idtable.table[i].iddatatype == IT::STR && (idtable.table[i].idtype == IT::V || idtable.table[i].idtype == IT::L)) {
-				cout << "[" << idtable.table[i].value.vstr.len << "]\"" << idtable.table[i].value.vstr.str << "\"";
+			else if (idtable->table[i].iddatatype == IT::STR && (idtable->table[i].idtype == IT::V || idtable->table[i].idtype == IT::L)) {
+				cout << "[" << idtable->table[i].value.vstr.len << "]\"" << idtable->table[i].value.vstr.str << "\"";
 			}
 			else {
 				cout << "-";

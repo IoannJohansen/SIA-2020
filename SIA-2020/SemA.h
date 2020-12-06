@@ -29,6 +29,6 @@ namespace Semantic
 	void CheckForReturnType(LT::LexTable& lextable, IT::IdTable& idtable);
 	void CheckCondAndStreams(LT::LexTable& lextable, IT::IdTable& idtable);
 
-
+	void AddParrentBlockToId(IT::IdTable& idenTable);
 
 }
