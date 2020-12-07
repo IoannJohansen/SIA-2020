@@ -238,10 +238,10 @@ void Generation::CodeGeneration(Scanner::Tables& tables)
 				if (tables.idenTable.table[tables.lexTable.table[resPosition].idxTI].iddatatype == IT::IDDATATYPE::INT)
 				{
 					fout << "\tpop eax\n";
-					fout << "\tcmp eax, 2147483647\n";
+					fout << "\tjo overflow\n";/*
 					fout << "\tjg overflow\n";
 					fout << "\tcmp eax, -2147483648\n";
-					fout << "\tjl overflow\n";
+					fout << "\tjl overflow\n";*/
 					fout << "\tmov " << tables.idenTable.table[tables.lexTable.table[resPosition].idxTI].id << ", eax";
 				}
 				else
@@ -296,7 +296,7 @@ void Generation::CodeGeneration(Scanner::Tables& tables)
 			}
 			case LEX_LEFTBRACE:		//+++
 			{
-				if (numOfIf && !flElse && flIf)
+				if (numOfIf /*&& !flElse*/ && flIf)
 				{
 					fout << "ifi" << ifI.top() << ":\n";
 					flIf = false;
@@ -399,7 +399,6 @@ void Generation::CodeGeneration(Scanner::Tables& tables)
 				stk.push(2);			// 2- признак else
 				break;
 			}
-
 
 		}
 	}

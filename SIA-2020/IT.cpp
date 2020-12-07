@@ -23,7 +23,7 @@ namespace IT
 		return idtable.table[n];
 	}
 
-	int IsId(IdTable& idtable, char id[ID_MAXSIZE], char block[ID_MAXSIZE])
+	int IsId(IdTable& idtable, char id[ID_MAXSIZE], char block[ID_MAXSIZE])		// usuall search
 	{
 		for (int i = 0; i < idtable.size; i++)
 		{
@@ -35,21 +35,33 @@ namespace IT
 		return TI_NULLIDX;
 	}
 
-	int IsId(IdTable& idtable, char* block, IDDATATYPE type, char* literal)
+	int IsId(IdTable& idtable, char* block, IDDATATYPE type, char* literal)		// search for literal
 	{
 		int val = atoi(literal);
 		for (int i = 0; i < idtable.size; i++)
 		{
 			if (idtable.table[i].id[0]=='L' && (!strcmp(idtable.table[i].parrentBlock, block)))
 			{
-				if (idtable.table[i].iddatatype == IT::INT && (idtable.table[i].value.vint == val)) return i;
-				else if (idtable.table[i].iddatatype == IT::STR && (!strcmp(idtable.table[i].value.vstr.str, literal))) return i;
+				switch (type)
+				{
+					case IT::INT:
+					{
+						if(idtable.table[i].iddatatype==IT::INT && (idtable.table[i].value.vint == val))return i;
+						break;
+					}
+					case IT::STR:
+					{
+						if (idtable.table[i].iddatatype == IT::STR && (!strcmp(idtable.table[i].value.vstr.str, literal)))return i;
+						break;
+					}
+
+				}
 			}
 		}
 		return TI_NULLIDX;
 	}
 
-	int IsId(IdTable& idtable, char* id)
+	int IsId(IdTable& idtable, char* id)										// for lib functions
 	{
 		for (int i = 0; i < idtable.size; i++)
 		{
