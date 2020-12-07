@@ -268,6 +268,16 @@ void Generation::CodeGeneration(Scanner::Tables& tables)
 						fout << "\t\tjl ifi" << numOfIf << endl;
 						fout << "\t\tjg else" << numOfIf << endl;
 					}
+					else if (tables.lexTable.table[i + 2].lexema == LEX_OPERSEQUAL)
+					{
+						fout << "\t\tjz ifi" << numOfIf << endl;
+						fout << "\t\tjnz else" << numOfIf << endl;
+					}
+					else if (tables.lexTable.table[i + 2].lexema == LEX_OPERSNOTEQUAL)
+					{
+						fout << "\t\tjnz ifi" << numOfIf << endl;
+						fout << "\t\tjz else" << numOfIf << endl;
+					}
 				}
 				break;
 			}

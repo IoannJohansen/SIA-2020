@@ -69,6 +69,7 @@ namespace Scanner
 		{	
 			lex = words->arr.front().token;
 			char j = Analysis(lex, &table);
+
 			if (j == '\0')
 			{
 				if (CheckForIntegerLiteral(words))
@@ -195,6 +196,9 @@ namespace Scanner
 	{
 		switch (lexem[0])
 		{
+
+		case LEX_OPERSNOTEQUAL:
+		case LEX_OPERSEQUAL:
 		case LEX_LESS:
 		case LEX_MORE:
 		case LEX_OPEN_PROC:
@@ -222,7 +226,6 @@ namespace Scanner
 			}
 			return LEX_SEMICOLON;
 		}
-		
 		case LEX_MODULO:
 		case LEX_PLUS:
 		case LEX_MINUS:

@@ -111,5 +111,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="i.txt.sin" />
+    <None Include="..\compilation.bat" />
   </ItemGroup>
 </Project>

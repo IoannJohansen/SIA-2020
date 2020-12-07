@@ -57,12 +57,13 @@ int wmain(int argc, wchar_t* argv[])
 
 		//-------------------------
 
-
 		IT::ShowTable(&tables.idenTable);
 		tables.idenTable.writeIT(param.in);
 		tables.lexTable.writeLT(param.in);
 		LT::Delete(tables.lexTable);
 		IT::Delete(tables.idenTable);
+		//system("start D:\\Desktop\\Labs\\SIA-2020\\compilation.bat");
+
 	}
 	catch (Error::ERROR e) 
 	{

@@ -32,6 +32,8 @@
 #define	LEX_EQUAL_SIGN		'='			// лексема дл€ =
 #define LEX_LESS			'<'			// лексема дл€ <
 #define LEX_MORE			'>'			// лексема дл€ >
+#define LEX_OPERSEQUAL		'&'			// лексема дл€ дл€ ==
+#define LEX_OPERSNOTEQUAL	'!'			// лексема дл€ дл€ !=
 #define PARM_LEX_DEFAULT_EXT L".lex.txt" //дл€ файла с итогом лексического анализa
 
 

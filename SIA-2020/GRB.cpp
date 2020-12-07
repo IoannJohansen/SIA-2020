@@ -20,7 +20,6 @@ namespace GRB
 			Rule::Chain(11, TS('t'), TS('p'), TS('i'), TS('('), NS('F'), TS(')'), TS('['), NS('N'), TS(']'), TS(';'), NS('S')),
 			Rule::Chain(10, TS('t'), TS('p'), TS('i'), TS('('), NS('F'), TS(')'), TS('['), NS('N'), TS(']'), TS(';')))
 
-
 		, Rule(NS('N'), GRB_ERROR_SERIES + 1, 18		// конструкции в функциях
 			, Rule::Chain(5, TS('c'), TS('t'), TS('i'), TS(';'), NS('N'))
 			, Rule::Chain(5, TS('i'), TS('='), NS('E'), TS(';'), NS('N'))
@@ -71,9 +70,11 @@ namespace GRB
 			, Rule::Chain(3, TS('i'), TS(','), NS('W'))
 			, Rule::Chain(3, TS('l'), TS(','), NS('W')))
 
-		, Rule(NS('Q'), GRB_ERROR_SERIES + 6, 2		//	Условие условного оператора
+		, Rule(NS('Q'), GRB_ERROR_SERIES + 6, 4		//	Условие условного оператора
 			, Rule::Chain(5, TS('('), NS('E'), TS('<'), NS('E'), TS(')'))
-			, Rule::Chain(5, TS('('), NS('E'), TS('>'), NS('E'), TS(')')))
+			, Rule::Chain(5, TS('('), NS('E'), TS('>'), NS('E'), TS(')'))
+			, Rule::Chain(5, TS('('), NS('E'), TS('&'), NS('E'), TS(')'))
+			, Rule::Chain(5, TS('('), NS('E'), TS('!'), NS('E'), TS(')')))
 		
 	);
 

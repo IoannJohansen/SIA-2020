@@ -33,10 +33,10 @@ num proc comp(word a, word b)
 [
 	create num res;
 	res = lexStrCmp(a, b);
-	if(res<0)
+	if(res&0)
 	{
 		outStream('Words are different');
-		if(res>0)
+		if(res > 0)
 		{
 			outStream('Words are different');
 			out 1;
@@ -63,6 +63,20 @@ num proc comp(word a, word b)
 	};
 ];
 
+num proc iseq(num a, num b)
+[
+	if(a!b)
+	{
+		outStream('Yes!');	
+		out 1;
+	}
+	else
+	{
+		outStream('Not!');	
+		out 0;
+	};
+];
+
 entry
 [
 	create word slovo;
@@ -73,6 +87,7 @@ entry
 	create num len;
 	create num getsum;
 	create num negn;
+	create num eq;
 
 	negn = 0 - 10;
 	parmsuda = getparm('Верни обратно!');
@@ -81,7 +96,7 @@ entry
 	slovo = 'Оно работает';
 	len = stringLen(slovo);
 	getsum = sum(negn, 123);
-	
+	eq = iseq(1, 2);
 
 	exp = 5;
 	exp = 5 * 10 / ( 8 - 3 );
