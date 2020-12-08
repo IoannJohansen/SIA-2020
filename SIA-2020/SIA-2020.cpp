@@ -8,6 +8,7 @@ int wmain(int argc, wchar_t* argv[])
 	Parm::PARM param = Parm::getparm(argc, argv);
 	try
 	{
+
 		log = Log::getlog(param.log);
 		In::IN in = In::getin(param.in);
 		Log::WriteLog(log);
@@ -36,24 +37,23 @@ int wmain(int argc, wchar_t* argv[])
 
 		//-------------------------
 		
-
 		//-------SEMANTIC ANALYSE----
 		
 		Semantic::SemanticAnalysis(&tables);
 	
 		//---------------------------
 		
-
 		//-------POLISH NOTATION---
 
 		PN::PolishNotation(tables);
 
 		//-------------------------
 		
-
 		//-------CODE GENERATION
 
 		Generation::CodeGeneration(tables);
+
+		//system("start D:\\Desktop\\Labs\\SIA-2020\\compilation.bat");
 
 		//-------------------------
 
@@ -62,7 +62,6 @@ int wmain(int argc, wchar_t* argv[])
 		tables.lexTable.writeLT(param.in);
 		LT::Delete(tables.lexTable);
 		IT::Delete(tables.idenTable);
-		//system("start D:\\Desktop\\Labs\\SIA-2020\\compilation.bat");
 
 	}
 	catch (Error::ERROR e) 

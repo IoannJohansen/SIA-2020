@@ -25,7 +25,6 @@ extern "C"
 			i++;
 		}
 		return 0;
-
 	}
 
 	int __stdcall outStreamW(char* value)

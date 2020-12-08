@@ -352,11 +352,12 @@ namespace Scanner
 	bool CheckForIntegerLiteral(Words* words)
 	{
 		char* lex = words->arr.front().token;
+		
 		for (int i = 0; i < strlen(lex); i++)
 		{
 			if (lex[i] < '0' || lex[i] > '9')return false;			// TODO: написать error
 		}
-		if ((atoi(lex) > pow(2, 31)) || (atoi(lex) < pow(-2, 31)))throw ERROR_THROW_IN(123, LINE, SYM); // too big value int literal
+		if ((atoll(lex) > pow(2, 31)) || (atoll(lex) < pow(-2, 31)))throw ERROR_THROW_IN(123, LINE, SYM); // too big value int literal
 		return true;
 	}
 	bool CheckId(Words* words)

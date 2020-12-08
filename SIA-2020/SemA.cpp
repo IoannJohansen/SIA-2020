@@ -268,49 +268,23 @@ namespace Semantic
 		{
 			if (lextable.table[i].lexema == LEX_OUTSTREAM)				// check for sense of chain with outStream token
 			{
-				if (lextable.table[i + 1].lexema == LEX_LEFTHESIS)
+				int j = i;
+				while (lextable.table[j].lexema != LEX_ID && lextable.table[j].lexema != LEX_LITERAL)j++;
+				IT::IDDATATYPE type = idtable.table[lextable.table[j].idxTI].iddatatype;
+				i++;
+				while (lextable.table[i].lexema != LEX_SEMICOLON)
 				{
-					int countOps = 0;
-					int brBalance = 0;
-					while (lextable.table[i].lexema != LEX_SEMICOLON)
+					if (idtable.table[lextable.table[i].idxTI].iddatatype != type && lextable.table[i].lexema != '@' && lextable.table[i].lexema != LEX_ARITHMETIC && lextable.table[i].lexema != LEX_LEFTHESIS && lextable.table[i].lexema != LEX_RIGHTHESIS && lextable.table[i].lexema != LEX_COMMA)
 					{
-						i++;
-						switch (lextable.table[i].lexema)
+						if (lextable.table[i - 1].lexema == LEX_COMMA || lextable.table[i - 1].lexema == LEX_LEFTHESIS)
 						{
-
-						case LEX_LITERAL:
-						case LEX_ID:
-						{
-							if (countOps == 1)throw ERROR_THROW_IN(SEM_ERROR_SIRES + 12, lextable.table[i].sn, 0);
-							countOps++;
-							break;
+							i++;
+							continue;
 						}
-
-						case LEX_LEFTHESIS:
-						{
-							brBalance++;
-							break;
-						}
-
-						case LEX_RIGHTHESIS:
-						{
-							brBalance--;
-							if (lextable.table[i + 1].lexema == LEX_SEMICOLON && brBalance != 0)throw ERROR_THROW_IN(SEM_ERROR_SIRES + 12, lextable.table[i].sn, 0);
-							break;
-						}
-
-						default:
-						{
-							if (lextable.table[i].lexema == LEX_SEMICOLON)break;
-							throw ERROR_THROW_IN(SEM_ERROR_SIRES + 12, lextable.table[i].sn, 0);
-						}
-
-						}
+						throw ERROR_THROW_IN(SEM_ERROR_SIRES + 12, lextable.table[i].sn, 0);
 					}
+					i++;
 				}
-				else
-					throw ERROR_THROW_IN(SEM_ERROR_SIRES + 12, lextable.table[i].sn, 0);
-
 			}
 		
 			if (lextable.table[i].lexema == LEX_IF)	// check for right sense of chain with if-else block

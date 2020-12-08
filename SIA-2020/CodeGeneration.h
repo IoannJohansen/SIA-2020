@@ -8,15 +8,11 @@
 #define CONST ".CONST\n\tnull_division BYTE \'ERROR: DIVISION BY ZERO\', 0\n\tOVER_FLOW BYTE \'ERROR: OVERFLOW\', 0\n"
 
 #define END \
-"\n\tpush 0"\
 "\n\tcall ExitProcess"\
 "\nSOMETHINGWRONG::"\
 "\n\tpush offset null_division"\
 "\n\tcall outStreamW"\
 "\njmp konec"\
-"\noverflow::"\
-"\n\tpush offset OVER_FLOW"\
-"\n\tcall outStreamW"\
 "\nkonec:"\
 "\n\tpush -1"\
 "\n\tcall ExitProcess"\
