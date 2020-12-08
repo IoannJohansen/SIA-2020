@@ -32,19 +32,19 @@ namespace Error
 
 		//------------------LEXICAL ANALYSIS ( 116-133 )
 
-		ERROR_ENTRY(116, "[LEX_ANALYSIS] Кол-во открывающих и закрывающих процедурных скобок не совпадает"),//+
-		ERROR_ENTRY(117, "[LEX_ANALYSIS] Таблица лексем переполнена"),										//+
-		ERROR_ENTRY(118, "[LEX_ANALYSIS] Таблица идентификаторов переполнена"),								//+
-		ERROR_ENTRY(119, "[LEX_ANALYSIS] Не удалось создать файл с лексемами / идентификаторами"),			//+
-		ERROR_ENTRY(120, "[LEX_ANALYSIS] Превышена длинна стркового литерала"),								//+
-		ERROR_ENTRY(121, "[LEX_ANALYSIS] Превышена длинна идентификатора"),									//+
-		ERROR_ENTRY(122, "[LEX_ANALYSIS] Запрещенные символы в имени идетификатора"),						//+
-		ERROR_ENTRY(123, "[LEX_ANALYSIS] Слишком большое значение целочисленного литерала"),				//+
-		ERROR_ENTRY(124, "[LEX_ANALYSIS] Не объявлена точка входа в программу ( main )"),					//+
-		ERROR_ENTRY(125, "[LEX_ANALYSIS] Определено несколько точек входа в программу ( main )"),			//+
-		ERROR_ENTRY(126, "[LEX_ANALYSIS] Использование необъявленного идентификатора"),						//+
-		ERROR_ENTRY(127, "[LEX_ANALYSIS] Неверное оъявление параметров"), 									//+
-		ERROR_ENTRY(128, "[LEX_ANALYSIS] Не найдена закрывающая кавычка строкового литерала"),				//+
+		ERROR_ENTRY(116, "[LEX_ANALYSIS] Кол-во открывающих и закрывающих процедурных скобок не совпадает"),
+		ERROR_ENTRY(117, "[LEX_ANALYSIS] Таблица лексем переполнена"),										
+		ERROR_ENTRY(118, "[LEX_ANALYSIS] Таблица идентификаторов переполнена"),								
+		ERROR_ENTRY(119, "[LEX_ANALYSIS] Не удалось создать файл с лексемами / идентификаторами"),			
+		ERROR_ENTRY(120, "[LEX_ANALYSIS] Превышена длинна стркового литерала"),								
+		ERROR_ENTRY(121, "[LEX_ANALYSIS] Превышена длинна идентификатора"),									
+		ERROR_ENTRY(122, "[LEX_ANALYSIS] Запрещенные символы в имени идетификатора"),						
+		ERROR_ENTRY(123, "[LEX_ANALYSIS] Слишком большое значение целочисленного литерала"),				
+		ERROR_ENTRY(124, "[LEX_ANALYSIS] Не объявлена точка входа в программу ( main )"),					
+		ERROR_ENTRY(125, "[LEX_ANALYSIS] Определено несколько точек входа в программу ( main )"),			
+		ERROR_ENTRY(126, "[LEX_ANALYSIS] Использование необъявленного идентификатора"),						
+		ERROR_ENTRY(127, "[LEX_ANALYSIS] Неверное оъявление параметров"), 									
+		ERROR_ENTRY(128, "[LEX_ANALYSIS] Не найдена закрывающая кавычка строкового литерала"),				
 		ERROR_ENTRY(129, "[LEX_ANALYSIS] Запрещенный элемент в глобальной области видимости"), 
 		ERROR_ENTRY_NODEF10(130),
 		ERROR_ENTRY_NODEF10(140),
@@ -61,11 +61,11 @@ namespace Error
 		//------------------SYNTAX ANALYSIS 	( 600 - 699 )
 
 		//TODO: fill err msg and def 
-		ERROR_ENTRY(600, "[SYNTAX_ANALYSIS] Неверная структура программы"),								  //+
-		ERROR_ENTRY(601, "[SYNTAX_ANALYSIS] Ошибочный оператор"),										  //+
-		ERROR_ENTRY(602, "[SYNTAX_ANALYSIS] Ошибка в выражении"),										  //+
-		ERROR_ENTRY(603, "[SYNTAX_ANALYSIS] Ошибка в параметрах функции"),								  //+
-		ERROR_ENTRY(604, "[SYNTAX_ANALYSIS] Ошибка в параметрах вызываемой функции"),					  //+
+		ERROR_ENTRY(600, "[SYNTAX_ANALYSIS] Неверная структура программы"),								  
+		ERROR_ENTRY(601, "[SYNTAX_ANALYSIS] Ошибочный оператор"),										  
+		ERROR_ENTRY(602, "[SYNTAX_ANALYSIS] Ошибка в выражении"),										  
+		ERROR_ENTRY(603, "[SYNTAX_ANALYSIS] Ошибка в параметрах функции"),								  
+		ERROR_ENTRY(604, "[SYNTAX_ANALYSIS] Ошибка в параметрах вызываемой функции"),					  
 		ERROR_ENTRY_NODEF(605),
 		ERROR_ENTRY_NODEF(606),
 		ERROR_ENTRY_NODEF(607),
@@ -88,10 +88,10 @@ namespace Error
 		ERROR_ENTRY(708, "[SEMANTIC ANALYSIS] Несоответствие формальных и фактических параметров встроенной функции"),
 		ERROR_ENTRY(709, "[SEMANTIC ANALYSIS] Тип возвращаемого значения не соответствует типу функции"),
 		ERROR_ENTRY(710, "[SEMANTIC ANALYSIS] В функции отсутствует возвращаемое значение"),
-		ERROR_ENTRY(711, "[SEMANTIC ANALYSIS] Превышено максимальное значение int (4 byte)"),						// 
-		ERROR_ENTRY(712, "[SEMANTIC ANALYSIS] Неверное выражение с outStream"),										//	+
-		ERROR_ENTRY(713, "[SEMANTIC ANALYSIS] Неверное выражение в блоке if"),										//	+
-		ERROR_ENTRY(714, "[SEMANTIC ANALYSIS] Главная функция entry может возвращать только значение типа INT"),	//	+
+		ERROR_ENTRY(711, "[SEMANTIC ANALYSIS] Превышено максимальное значение int (4 byte)"),						
+		ERROR_ENTRY(712, "[SEMANTIC ANALYSIS] Неверное выражение с outStream"),										
+		ERROR_ENTRY(713, "[SEMANTIC ANALYSIS] Неверное выражение в блоке if"),										
+		ERROR_ENTRY(714, "[SEMANTIC ANALYSIS] Главная функция entry может возвращать только значение типа INT"),	
 		ERROR_ENTRY_NODEF(715),
 		ERROR_ENTRY_NODEF(716),
 		ERROR_ENTRY_NODEF(717),

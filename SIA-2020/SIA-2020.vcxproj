@@ -58,7 +58,6 @@
     <Text Include="i1.txt" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\compilation.bat" />
     <None Include="i.txt.sin" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

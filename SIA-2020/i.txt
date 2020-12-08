@@ -1,16 +1,10 @@
-word proc hey(word st)
+num proc 3test(num a)
 [
-	out 'Hello gays';
-];
-
-num proc get(num a)
-[
-	a = stringLen('Hay')+stringLen('Hoy')+stringLen('Lalalali');
-	out a;
+	out 5;
 ];
 
 entry
 [
-	outStream get(1);
+	outStream 5;
 	out 0;
 ];
