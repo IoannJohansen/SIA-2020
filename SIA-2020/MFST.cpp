@@ -1,4 +1,5 @@
 #include "MFST.h"
+
 template<class T>T getStackElement(const std::stack<T>& st, size_t element)
 {
 	using base = std::stack<T>;

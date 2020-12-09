@@ -1,7 +1,6 @@
 #include "stdafx.h"
 #include <cstring>
 #define GRB_ERROR_SERIES 600
-
 namespace GRB
 {
 

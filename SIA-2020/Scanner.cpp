@@ -102,9 +102,15 @@ namespace Scanner
 					{
 
 						if (!(CHECKFORDECLARE) && !flPar && !(LIBFOO))throw ERROR_THROW_IN(126, LINE, SYM);		// using of undeclared id
-						if (!strcmp(block.top(), TI_BLOCK_DEFAULT) && (tempIT.idtype != IT::F || table.lexTable.table[table.lexTable.size-4].lexema==LEX_CREATE))throw ERROR_THROW_IN(129, LINE, SYM);
+						if (!strcmp(block.top(), TI_BLOCK_DEFAULT) && (tempIT.idtype != IT::F || table.lexTable.table[table.lexTable.size - 4].lexema == LEX_CREATE))throw ERROR_THROW_IN(129, LINE, SYM);
 						AddID(lex, &table, tempIT);
 					}
+					else
+					{
+						if (CHECKFORDECLARE)throw ERROR_THROW_IN(130, LINE, SYM);		// overriding of id
+					}
+						
+						
 				}
 			}
 			else

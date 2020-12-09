@@ -1,10 +1,38 @@
-num proc 3test(num a)
+num proc sum(num a, num b)
 [
-	out 5;
+	out a+b;
 ];
-
+num proc isequals(num a, num b)
+[
+	if(a&b)
+	{
+		out 0;
+	}
+	else
+	{
+		out 1;
+	};
+];
+num proc getlen(word string)
+[
+	out stringLen(string);
+];
 entry
 [
-	outStream 5;
+	create num rescmp;
+	rescmp = isequals(1,2);
+	if(rescmp&0)
+	{
+		outStream 'Числа одинаковы';
+	}
+	else
+	{
+		outStream 'Числа различны';
+	};
+
+	create num ressum;
+	ressum = sum(15,35);
+	outStream(ressum);
+	outStream getlen('Hay');
 	out 0;
 ];
