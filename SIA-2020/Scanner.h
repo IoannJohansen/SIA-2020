@@ -80,100 +80,100 @@ namespace Scanner
 
 #pragma region FSTs
 
-#define FST_COUNT 11
+	#define FST_COUNT 11
 
-#define A_PROC 5,			  \
-			FST::NODE(1, FST::RELATION('p', 1)),  \
-			FST::NODE(1, FST::RELATION('r', 2)),  \
-			FST::NODE(1, FST::RELATION('o', 3)),  \
-			FST::NODE(1, FST::RELATION('c', 4)),  \
-			FST::NODE()		
+	#define A_PROC 5,			  \
+				FST::NODE(1, FST::RELATION('p', 1)),  \
+				FST::NODE(1, FST::RELATION('r', 2)),  \
+				FST::NODE(1, FST::RELATION('o', 3)),  \
+				FST::NODE(1, FST::RELATION('c', 4)),  \
+				FST::NODE()		
 
-#define A_NUM 4,\
-			FST::NODE(1, FST::RELATION('n', 1)),\
-			FST::NODE(1, FST::RELATION('u', 2)),\
-			FST::NODE(1, FST::RELATION('m', 3)),\
-			FST::NODE()
+	#define A_NUM 4,\
+				FST::NODE(1, FST::RELATION('n', 1)),\
+				FST::NODE(1, FST::RELATION('u', 2)),\
+				FST::NODE(1, FST::RELATION('m', 3)),\
+				FST::NODE()
 
-#define A_CREATE 7,\
-			FST::NODE(1, FST::RELATION('c', 1)),\
-			FST::NODE(1, FST::RELATION('r', 2)),\
-			FST::NODE(1, FST::RELATION('e', 3)),\
-			FST::NODE(1, FST::RELATION('a', 4)),\
-			FST::NODE(1, FST::RELATION('t', 5)),\
-		    FST::NODE(1, FST::RELATION('e', 6)),\
-			FST::NODE()
+	#define A_CREATE 7,\
+				FST::NODE(1, FST::RELATION('c', 1)),\
+				FST::NODE(1, FST::RELATION('r', 2)),\
+				FST::NODE(1, FST::RELATION('e', 3)),\
+				FST::NODE(1, FST::RELATION('a', 4)),\
+				FST::NODE(1, FST::RELATION('t', 5)),\
+				FST::NODE(1, FST::RELATION('e', 6)),\
+				FST::NODE()
 
-#define A_OUT 4,\
-			FST::NODE(1, FST::RELATION('o', 1)),\
-			FST::NODE(1, FST::RELATION('u', 2)),\
-			FST::NODE(1, FST::RELATION('t', 3)),\
-			FST::NODE()
+	#define A_OUT 4,\
+				FST::NODE(1, FST::RELATION('o', 1)),\
+				FST::NODE(1, FST::RELATION('u', 2)),\
+				FST::NODE(1, FST::RELATION('t', 3)),\
+				FST::NODE()
 
 
-#define A_WORD 5,				  \
-			FST::NODE(1, FST::RELATION('w', 1)),  \
-			FST::NODE(1, FST::RELATION('o', 2)),  \
-			FST::NODE(1, FST::RELATION('r', 3)),  \
-			FST::NODE(1, FST::RELATION('d', 4)),  \
-			FST::NODE()	
+	#define A_WORD 5,				  \
+				FST::NODE(1, FST::RELATION('w', 1)),  \
+				FST::NODE(1, FST::RELATION('o', 2)),  \
+				FST::NODE(1, FST::RELATION('r', 3)),  \
+				FST::NODE(1, FST::RELATION('d', 4)),  \
+				FST::NODE()	
 
-#define A_OUTSTREAM 10,				  \
-			FST::NODE(1, FST::RELATION('o', 1)),  \
-			FST::NODE(1, FST::RELATION('u', 2)),  \
-			FST::NODE(1, FST::RELATION('t', 3)),  \
-			FST::NODE(1, FST::RELATION('S', 4)),  \
-			FST::NODE(1, FST::RELATION('t', 5)),  \
-			FST::NODE(1, FST::RELATION('r', 6)),  \
-			FST::NODE(1, FST::RELATION('e', 7)),  \
-			FST::NODE(1, FST::RELATION('a', 8)),  \
-			FST::NODE(1, FST::RELATION('m', 9)),  \
-			FST::NODE()
+	#define A_OUTSTREAM 10,				  \
+				FST::NODE(1, FST::RELATION('o', 1)),  \
+				FST::NODE(1, FST::RELATION('u', 2)),  \
+				FST::NODE(1, FST::RELATION('t', 3)),  \
+				FST::NODE(1, FST::RELATION('S', 4)),  \
+				FST::NODE(1, FST::RELATION('t', 5)),  \
+				FST::NODE(1, FST::RELATION('r', 6)),  \
+				FST::NODE(1, FST::RELATION('e', 7)),  \
+				FST::NODE(1, FST::RELATION('a', 8)),  \
+				FST::NODE(1, FST::RELATION('m', 9)),  \
+				FST::NODE()
 
-#define A_ENTRY 6,					\
-			FST::NODE(1, FST::RELATION('e', 1)),\
-			FST::NODE(1, FST::RELATION('n', 2)),\
-			FST::NODE(1, FST::RELATION('t', 3)),\
-			FST::NODE(1, FST::RELATION('r', 4)),\
-			FST::NODE(1, FST::RELATION('y', 5)),\
-			FST::NODE()
+	#define A_ENTRY 6,					\
+				FST::NODE(1, FST::RELATION('e', 1)),\
+				FST::NODE(1, FST::RELATION('n', 2)),\
+				FST::NODE(1, FST::RELATION('t', 3)),\
+				FST::NODE(1, FST::RELATION('r', 4)),\
+				FST::NODE(1, FST::RELATION('y', 5)),\
+				FST::NODE()
 
-#define A_IF 3,\
-			FST::NODE(1, FST::RELATION('i', 1)),\
-			FST::NODE(1, FST::RELATION('f', 2)),\
-			FST::NODE()
+	#define A_IF 3,\
+				FST::NODE(1, FST::RELATION('i', 1)),\
+				FST::NODE(1, FST::RELATION('f', 2)),\
+				FST::NODE()
 
-#define A_ELSE 5,\
-			FST::NODE(1, FST::RELATION('e', 1)),\
-			FST::NODE(1, FST::RELATION('l', 2)),\
-			FST::NODE(1, FST::RELATION('s', 3)),\
-			FST::NODE(1, FST::RELATION('e', 4)),\
-			FST::NODE()
+	#define A_ELSE 5,\
+				FST::NODE(1, FST::RELATION('e', 1)),\
+				FST::NODE(1, FST::RELATION('l', 2)),\
+				FST::NODE(1, FST::RELATION('s', 3)),\
+				FST::NODE(1, FST::RELATION('e', 4)),\
+				FST::NODE()
 
 	
-#define A_STRCMP 10,\
-			FST::NODE(1, FST::RELATION('l', 1)),\
-			FST::NODE(1, FST::RELATION('e', 2)),\
-			FST::NODE(1, FST::RELATION('x', 3)),\
-			FST::NODE(1, FST::RELATION('S', 4)),\
-			FST::NODE(1, FST::RELATION('t', 5)),\
-			FST::NODE(1, FST::RELATION('r', 6)),\
-			FST::NODE(1, FST::RELATION('C', 7)),\
-			FST::NODE(1, FST::RELATION('m', 8)),\
-			FST::NODE(1, FST::RELATION('p', 9)),\
-			FST::NODE()
+	#define A_STRCMP 10,\
+				FST::NODE(1, FST::RELATION('l', 1)),\
+				FST::NODE(1, FST::RELATION('e', 2)),\
+				FST::NODE(1, FST::RELATION('x', 3)),\
+				FST::NODE(1, FST::RELATION('S', 4)),\
+				FST::NODE(1, FST::RELATION('t', 5)),\
+				FST::NODE(1, FST::RELATION('r', 6)),\
+				FST::NODE(1, FST::RELATION('C', 7)),\
+				FST::NODE(1, FST::RELATION('m', 8)),\
+				FST::NODE(1, FST::RELATION('p', 9)),\
+				FST::NODE()
 
-#define A_STRLEN 10,\
-			FST::NODE(1, FST::RELATION('s', 1)),\
-			FST::NODE(1, FST::RELATION('t', 2)),\
-			FST::NODE(1, FST::RELATION('r', 3)),\
-			FST::NODE(1, FST::RELATION('i', 4)),\
-			FST::NODE(1, FST::RELATION('n', 5)),\
-			FST::NODE(1, FST::RELATION('g', 6)),\
-			FST::NODE(1, FST::RELATION('L', 7)),\
-			FST::NODE(1, FST::RELATION('e', 8)),\
-			FST::NODE(1, FST::RELATION('n', 9)),\
-			FST::NODE()
+	#define A_STRLEN 10,\
+				FST::NODE(1, FST::RELATION('s', 1)),\
+				FST::NODE(1, FST::RELATION('t', 2)),\
+				FST::NODE(1, FST::RELATION('r', 3)),\
+				FST::NODE(1, FST::RELATION('i', 4)),\
+				FST::NODE(1, FST::RELATION('n', 5)),\
+				FST::NODE(1, FST::RELATION('g', 6)),\
+				FST::NODE(1, FST::RELATION('L', 7)),\
+				FST::NODE(1, FST::RELATION('e', 8)),\
+				FST::NODE(1, FST::RELATION('n', 9)),\
+				FST::NODE()
 
 #pragma endregion
 

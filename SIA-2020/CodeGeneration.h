@@ -13,6 +13,10 @@
 "\n\tpush offset null_division"\
 "\n\tcall outStreamW"\
 "\njmp konec"\
+/*
+"\noverflow::"\
+"\n\tpush offset OVER_FLOW"\
+"\n\tcall outStreamW"\*/\
 "\nkonec:"\
 "\n\tpush -1"\
 "\n\tcall ExitProcess"\

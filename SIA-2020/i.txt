@@ -19,20 +19,9 @@ num proc getlen(word string)
 ];
 entry
 [
-	create num rescmp;
-	rescmp = isequals(1,2);
-	if(rescmp&0)
-	{
-		outStream 'Числа одинаковы';
-	}
-	else
-	{
-		outStream 'Числа различны';
-	};
-
-	create num ressum;
-	ressum = sum(15,35);
-	outStream(ressum);
-	outStream getlen('Hay');
+	create num hael;
+	hael = 2 - 40;
+	hael = hael * hael;
+	outStream hael ;
 	out 0;
 ];

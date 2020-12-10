@@ -15,17 +15,11 @@ lexStrCmp PROTO: DWORD, :DWORD
 	OVER_FLOW BYTE 'ERROR: OVERFLOW', 0
 	L0 SDWORD 0
 	L1 SDWORD 1
-	L2 SDWORD 1
-	L3 SDWORD 2
+	L2 SDWORD 2
+	L3 SDWORD 40
 	L4 SDWORD 0
-	L5 BYTE 'Числа одинаковы', 0
-	L6 BYTE 'Числа различны', 0
-	L7 SDWORD 15
-	L8 SDWORD 35
-	L9 BYTE 'Hay', 0
 .DATA
-	rescmpENTRY SDWORD 0
-	ressumENTRY SDWORD 0
+	haelENTRY SDWORD 0
 .CODE
 	sum PROC bsum:SDWORD, asum:SDWORD
 	push asum
@@ -71,36 +65,21 @@ getlen ENDP
 main PROC
 	push L2
 	push L3
-		call isequals
+	pop ebx
+	pop eax
+	sub eax, ebx
 	push eax
 	pop eax
-	mov rescmpENTRY, eax
-	mov eax, rescmpENTRY
-	cmp eax, L4
-		jz ifi2
-		jnz else2
-ifi2:
-	push offset L5
-
-call outStreamW
-	jmp ifEnd2
-else2:
-	push offset L6
-
-call outStreamW
-ifEnd2:
-	push L7
-	push L8
-		call sum
+	mov haelENTRY, eax
+	push haelENTRY
+	push haelENTRY
+	pop eax
+	pop ebx
+	mul ebx
 	push eax
 	pop eax
-	mov ressumENTRY, eax
-	push ressumENTRY
-
-call outStreamN
-	push offset L9
-		call getlen
-	push eax
+	mov haelENTRY, eax
+	push haelENTRY
 
 call outStreamN
 	push L4

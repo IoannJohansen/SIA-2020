@@ -333,10 +333,10 @@ void Generation::CodeGeneration(Scanner::Tables& tables)
 
 				if (tables.idenTable.table[tables.lexTable.table[resPosition].idxTI].iddatatype == IT::IDDATATYPE::INT)
 				{
-					fout << "\tpop eax\n";/*
-					fout << "\tcmp eax, 2147483647\n";
+					fout << "\tpop eax\n";
+					/*fout << "\tcmp rax, 2147483647\n";
 					fout << "\tjg overflow\n";
-					fout << "\tcmp eax, -2147483648\n";
+					fout << "\tcmp rax, -2147483648\n";
 					fout << "\tjl overflow\n";*/
 					fout << "\tmov " << tables.idenTable.table[tables.lexTable.table[resPosition].idxTI].id << ", eax";
 				}

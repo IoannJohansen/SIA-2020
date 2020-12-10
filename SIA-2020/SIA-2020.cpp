@@ -21,7 +21,7 @@ int wmain(int argc, wchar_t* argv[])
 
 		Scanner::Words* words = Scanner::TextDivision(in);
 		Scanner::Tables tables = Scanner::GetTables(words);
-
+		
 		//-------------------------
 
 

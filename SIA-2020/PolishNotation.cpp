@@ -192,9 +192,5 @@ namespace PN
 			}
 			tables.lexTable.size--;
 		}
-
-
-
 	}
-
 }
