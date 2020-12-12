@@ -1,0 +1,27 @@
+num proc sum(num a, num b)
+[
+	out a+b;
+];
+num proc isequals(num a, num b)
+[
+	if(a&b)
+	{
+		out 0;
+	}
+	else
+	{
+		out 1;
+	};
+];
+num proc getlen(word string)
+[
+	out stringLen(string);
+];
+entry
+[
+	create num hael;
+	hael = 2 - 40;
+	hael = hael * 2;
+	outStream hael ;
+	out 0;
+];

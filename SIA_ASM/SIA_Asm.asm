@@ -1,96 +1,124 @@
 .586
-	.model flat, stdcall
-	includelib libucrt.lib
-	includelib kernel32.lib
-	includelib ..\Debug\LIB.lib
-	ExitProcess PROTO :DWORD
-
+.model flat, stdcall
+includelib libucrt.lib
+includelib kernel32.lib
+includelib ..\Debug\LIB.lib
+ExitProcess PROTO :DWORD
 outStreamW PROTO: SDWORD
 outStreamN PROTO: DWORD
 stringLen PROTO: DWORD
 lexStrCmp PROTO: DWORD, :DWORD
 .stack 4096
 .CONST
-	null_division BYTE 'ERROR: DIVISION BY ZERO', 0
+null_division BYTE 'ERROR: DIVISION BY ZERO', 0
 	OVER_FLOW BYTE 'ERROR: OVERFLOW', 0
 	L0 SDWORD 0
 	L1 SDWORD 1
-	L2 SDWORD 2
-	L3 SDWORD 40
-	L4 SDWORD 0
+	L2 BYTE 'Hello wolrd!', 0
+	L3 SDWORD 5
+	L4 SDWORD 2
+	L5 SDWORD 0
 .DATA
-	haelENTRY SDWORD 0
+	tempfactorial SDWORD 0
+	qsunlight SDWORD 0
+	strokaENTRY DWORD ?
+	lenENTRY SDWORD 0
+	resultENTRY SDWORD 0
 .CODE
-	sum PROC bsum:SDWORD, asum:SDWORD
-	push asum
-	push bsum
-	pop eax
-	pop ebx
-	add eax, ebx
-	push eax
-		jmp local0
-local0:
-	pop eax
-	ret
-sum ENDP
-
-	isequals PROC bisequals:SDWORD, aisequals:SDWORD
-	mov eax, aisequals
-	cmp eax, bisequals
-		jz ifi1
-		jnz else1
+factorial PROC xfactorial:SDWORD
+	mov eax, xfactorial
+	cmp eax, L0
+		jl ifi1
+		jge else1
 ifi1:
 	push L0
-		jmp local1
-	jmp ifEnd1
+	jmp local0
 else1:
+	mov eax, xfactorial
+	cmp eax, L0
+		jz ifi2
+		jnz else2
+ifi2:
 	push L1
-		jmp local1
-ifEnd1:
-local1:
-	pop eax
-	ret
-isequals ENDP
-
-	getlen PROC stringgetlen:DWORD
-	push stringgetlen
-		call stringLen
-	push eax
-		jmp local2
-local2:
-	pop eax
-	ret
-getlen ENDP
-
-main PROC
-	push L2
-	push L3
+	jmp local0
+	jmp ifEnd2
+else2:
+	push xfactorial
+	push L1
 	pop ebx
 	pop eax
 	sub eax, ebx
 	push eax
 	pop eax
-	mov haelENTRY, eax
-	push haelENTRY
-	push haelENTRY
+	mov tempfactorial, eax
+	push tempfactorial
+	call factorial
+	push eax
+	push xfactorial
 	pop eax
 	pop ebx
 	mul ebx
 	push eax
+	jmp local0
+ifEnd2:
+local0:
 	pop eax
-	mov haelENTRY, eax
-	push haelENTRY
+	ret
+factorial ENDP
 
-call outStreamN
+sunlight PROC bsunlight:DWORD, asunlight:DWORD
+	push asunlight
+	push bsunlight
+	call lexStrCmp
+	push eax
+	pop eax
+	mov qsunlight, eax
+	push qsunlight
+	jmp local1
+local1:
+	pop eax
+	ret
+sunlight ENDP
+
+main PROC
+	push offset L2
+	pop strokaENTRY
+
+	push strokaENTRY
+	call stringLen
+	push eax
+	pop eax
+	mov lenENTRY, eax
+	push strokaENTRY
+	push offset L2
+	call sunlight
+	push eax
+	pop eax
+	mov resultENTRY, eax
+	push resultENTRY
+
+	call outStreamN
+	push L3
+	call factorial
+	push eax
 	push L4
-		jmp theend
-theend:
+	pop eax
+	pop ebx
+	mul ebx
+	push eax
 
+	call outStreamN
+	push lenENTRY
+
+	call outStreamN
+	push L5
+	jmp theend
+theend:
 	call ExitProcess
 SOMETHINGWRONG::
 	push offset null_division
 	call outStreamW
-jmp konec
+	jmp konec
 konec:
 	push -1
 	call ExitProcess

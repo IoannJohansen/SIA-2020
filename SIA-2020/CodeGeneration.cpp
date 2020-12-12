@@ -63,9 +63,9 @@ void Generation::CodeGeneration(Scanner::Tables& tables)
 		switch (tables.lexTable.table[i].lexema)
 		{
 
-			case LEX_PROC:			//+++
+			case LEX_PROC:		
 			{
-				fout << '\t' << (funcName = tables.idenTable.table[tables.lexTable.table[++i].idxTI].id) << " PROC ";
+				fout  << (funcName = tables.idenTable.table[tables.lexTable.table[++i].idxTI].id) << " PROC ";
 				int indexF = i;
 				for (; tables.lexTable.table[indexF].lexema != LEX_RIGHTHESIS; indexF++);
 				i = indexF;
@@ -94,16 +94,15 @@ void Generation::CodeGeneration(Scanner::Tables& tables)
 				fout << endl;
 				break;
 			}
-			case LEX_ENTRY:			//+++
+			case LEX_ENTRY:			
 			{
 				flEntry = true;
 				fout << "main PROC\n";
 				break;
 			}
-			case LEX_OUT:			//+++
+			case LEX_OUT:		
 			{
 				i++;
-
 				while (tables.lexTable.table[i].lexema != LEX_SEMICOLON)
 				{
 					switch (tables.lexTable.table[i].lexema)
@@ -125,9 +124,8 @@ void Generation::CodeGeneration(Scanner::Tables& tables)
 
 						case LEX_ID:
 						{
-							if (tables.idenTable.table[tables.lexTable.table[i].idxTI].idtype /*==*/ != IT::IDTYPE::F)
+							if (tables.idenTable.table[tables.lexTable.table[i].idxTI].idtype != IT::IDTYPE::F)
 							{
-								/*fout << "\t\tcall " << tables.idenTable.table[tables.lexTable.table[i].idxTI].id << "\n\tpush eax\n";*/
 								fout << "\tpush " << tables.idenTable.table[tables.lexTable.table[i].idxTI].id << endl;
 								break;
 							}
@@ -136,138 +134,7 @@ void Generation::CodeGeneration(Scanner::Tables& tables)
 
 						case '@':
 						{
-							fout << "\t\tcall " << tables.idenTable.table[tables.lexTable.table[i - tables.lexTable.table[i].idxTI - 1].idxTI].id << "\n\tpush eax\n";
-							break;
-						}
-
-						case LEX_ARITHMETIC:
-					{
-						switch (tables.idenTable.table[tables.lexTable.table[i].idxTI].id[0])
-						{
-
-							case LEX_STAR:
-							{
-								fout << "\tpop eax\n\tpop ebx\n";
-								fout << "\tmul ebx\n\tpush eax\n";
-								break;
-							}
-
-							case LEX_PLUS:
-							{
-								fout << "\tpop eax\n\tpop ebx\n";
-								fout << "\tadd eax, ebx\n\tpush eax\n";
-								break;
-							}
-
-							case LEX_MINUS:
-							{
-								fout << "\tpop ebx\n\tpop eax\n";
-								fout << "\tsub eax, ebx\n\tpush eax\n";
-								break;
-							}
-
-							case LEX_DIRSLASH:
-							{
-								fout << "\tpop ebx\n\tpop eax\n";
-								fout << "\tcmp ebx,0\n"\
-									"\tje SOMETHINGWRONG\n";
-								fout << "\tcdq\n";
-								fout << "\tidiv ebx\n\tpush eax\n";
-								break;
-							}
-
-							case LEX_MODULO:
-							{
-
-								fout << "\tpop ebx\n\tpop eax\n";
-								fout << "\tcmp ebx,0\n"\
-									"\tje SOMETHINGWRONG\n";
-								fout << "\tcdq\n";
-								fout << "\tidiv ebx\n\tpush edx\n";
-								break;
-							}
-
-
-							default:
-							{
-								break;
-							}
-
-						}
-
-					}
-
-					}
-					i++;
-				}
-
-				/*fout << "\tpush ";
-				i++;
-				if (tables.idenTable.table[tables.lexTable.table[i].idxTI].idtype == IT::L)
-				{
-					if (tables.idenTable.table[tables.lexTable.table[i].idxTI].iddatatype == IT::INT)
-					{
-						fout << tables.idenTable.table[tables.lexTable.table[i++].idxTI].id << endl;
-
-					}
-					else if (tables.idenTable.table[tables.lexTable.table[i].idxTI].iddatatype == IT::STR)
-					{
-						fout << "offset " << tables.idenTable.table[tables.lexTable.table[i++].idxTI].id << endl;
-
-					}
-				}
-				else
-				{
-					fout << tables.idenTable.table[tables.lexTable.table[i++].idxTI].id << endl;
-				}*/
-
-				if (flagFunc)
-				{
-					fout << "\t\tjmp local" << numOfret << endl;
-					flret = true;
-				}
-				if (flEntry)
-				{
-					fout << "\t\tjmp theend\n";
-					flret = true;
-				}
-				break;
-			}
-			case LEX_EQUAL_SIGN:	//+++
-			{
-				int resPosition = i - 1;
-				while (tables.lexTable.table[i].lexema != LEX_SEMICOLON)
-				{
-					switch (tables.lexTable.table[i].lexema)
-					{
-						case LEX_LITERAL:
-						{
-							if (tables.idenTable.table[tables.lexTable.table[i].idxTI].iddatatype == IT::IDDATATYPE::STR)
-							{
-								fout << "\tpush offset " << tables.idenTable.table[tables.lexTable.table[i].idxTI].id << endl;
-								break;
-							}
-							else
-							{
-								fout << "\tpush " << tables.idenTable.table[tables.lexTable.table[i].idxTI].id << endl;
-								break;
-							}
-						}
-
-						case LEX_ID:
-						{
-							if (tables.idenTable.table[tables.lexTable.table[i].idxTI].idtype /*==*/!= IT::IDTYPE::F)
-							{
-								/*fout << "\t\tcall " << tables.idenTable.table[tables.lexTable.table[i].idxTI].id << "\n\tpush eax\n";*/
-								fout << "\tpush " << tables.idenTable.table[tables.lexTable.table[i].idxTI].id << endl;
-								break;
-							}
-							break;
-						}
-
-						case '@':
-						{
-							fout << "\t\tcall " << tables.idenTable.table[tables.lexTable.table[i - tables.lexTable.table[i].idxTI - 1].idxTI].id << "\n\tpush eax\n";
+							fout << "\tcall " << tables.idenTable.table[tables.lexTable.table[i - tables.lexTable.table[i].idxTI - 1].idxTI].id << "\n\tpush eax\n";
 							break;
 						}
 
@@ -318,10 +185,119 @@ void Generation::CodeGeneration(Scanner::Tables& tables)
 									break;
 								}
 
-
 								default:
+								{
 									break;
+								}
+
 							}
+
+						}
+
+					}
+					i++;
+				}
+
+				if (flagFunc)
+				{
+					fout << "\tjmp local" << numOfret << endl;
+					flret = true;
+				}
+				if (flEntry)
+				{
+					fout << "\tjmp theend\n";
+					flret = true;
+				}
+				break;
+			}
+			case LEX_EQUAL_SIGN:	
+			{
+				int resPosition = i - 1;
+				while (tables.lexTable.table[i].lexema != LEX_SEMICOLON)
+				{
+					switch (tables.lexTable.table[i].lexema)
+					{
+						case LEX_LITERAL:
+						{
+								if (tables.idenTable.table[tables.lexTable.table[i].idxTI].iddatatype == IT::IDDATATYPE::STR)
+								{
+									fout << "\tpush offset " << tables.idenTable.table[tables.lexTable.table[i].idxTI].id << endl;
+									break;
+								}
+								else
+								{
+									fout << "\tpush " << tables.idenTable.table[tables.lexTable.table[i].idxTI].id << endl;
+									break;
+								}
+							}
+
+						case LEX_ID:
+						{
+								if (tables.idenTable.table[tables.lexTable.table[i].idxTI].idtype != IT::IDTYPE::F)
+								{
+									fout << "\tpush " << tables.idenTable.table[tables.lexTable.table[i].idxTI].id << endl;
+									break;
+								}
+								break;
+							}
+
+						case '@':
+						{
+								fout << "\tcall " << tables.idenTable.table[tables.lexTable.table[i - tables.lexTable.table[i].idxTI - 1].idxTI].id << "\n\tpush eax\n";
+								break;
+							}
+
+						case LEX_ARITHMETIC:
+						{
+							switch (tables.idenTable.table[tables.lexTable.table[i].idxTI].id[0])
+								{
+
+									case LEX_STAR:
+									{
+										fout << "\tpop eax\n\tpop ebx\n";
+										fout << "\tmul ebx\n\tpush eax\n";
+										break;
+									}
+
+									case LEX_PLUS:
+									{
+										fout << "\tpop eax\n\tpop ebx\n";
+										fout << "\tadd eax, ebx\n\tpush eax\n";
+										break;
+									}
+
+									case LEX_MINUS:
+									{
+										fout << "\tpop ebx\n\tpop eax\n";
+										fout << "\tsub eax, ebx\n\tpush eax\n";
+										break;
+									}
+
+									case LEX_DIRSLASH:
+									{
+										fout << "\tpop ebx\n\tpop eax\n";
+										fout << "\tcmp ebx,0\n"\
+											"\tje SOMETHINGWRONG\n";
+										fout << "\tcdq\n";
+										fout << "\tidiv ebx\n\tpush eax\n";
+										break;
+									}
+
+									case LEX_MODULO:
+									{
+
+										fout << "\tpop ebx\n\tpop eax\n";
+										fout << "\tcmp ebx,0\n"\
+											"\tje SOMETHINGWRONG\n";
+										fout << "\tcdq\n";
+										fout << "\tidiv ebx\n\tpush edx\n";
+										break;
+									}
+
+
+									default:
+										break;
+								}
 							break;
 						}
 
@@ -334,10 +310,6 @@ void Generation::CodeGeneration(Scanner::Tables& tables)
 				if (tables.idenTable.table[tables.lexTable.table[resPosition].idxTI].iddatatype == IT::IDDATATYPE::INT)
 				{
 					fout << "\tpop eax\n";
-					/*fout << "\tcmp rax, 2147483647\n";
-					fout << "\tjg overflow\n";
-					fout << "\tcmp rax, -2147483648\n";
-					fout << "\tjl overflow\n";*/
 					fout << "\tmov " << tables.idenTable.table[tables.lexTable.table[resPosition].idxTI].id << ", eax";
 				}
 				else
@@ -348,7 +320,7 @@ void Generation::CodeGeneration(Scanner::Tables& tables)
 				break;
 
 			}
-			case LEX_LEFTHESIS:		//+++
+			case LEX_LEFTHESIS:		
 			{
 				if (numOfIf && tables.lexTable.table[i - 1].lexema == LEX_IF)
 				{
@@ -376,8 +348,8 @@ void Generation::CodeGeneration(Scanner::Tables& tables)
 					}
 				}
 				break;
-			}
-			case LEX_OUTSTREAM:		//+++
+				}
+			case LEX_OUTSTREAM:		
 			{
 				i++;
 				IT::IDDATATYPE outType = tables.idenTable.table[tables.lexTable.table[i].idxTI].iddatatype;
@@ -385,127 +357,105 @@ void Generation::CodeGeneration(Scanner::Tables& tables)
 				{
 					switch (tables.lexTable.table[i].lexema)
 					{
-					
-					case LEX_LITERAL:
-					{
-						if (tables.idenTable.table[tables.lexTable.table[i].idxTI].iddatatype == IT::IDDATATYPE::STR)
+				
+						case LEX_LITERAL:
 						{
-							fout << "\tpush offset " << tables.idenTable.table[tables.lexTable.table[i].idxTI].id << endl;
-							break;
-						}
-						else
+								if (tables.idenTable.table[tables.lexTable.table[i].idxTI].iddatatype == IT::IDDATATYPE::STR)
+								{
+									fout << "\tpush offset " << tables.idenTable.table[tables.lexTable.table[i].idxTI].id << endl;
+									break;
+								}
+								else
+								{
+									fout << "\tpush " << tables.idenTable.table[tables.lexTable.table[i].idxTI].id << endl;
+									break;
+								}
+							}
+
+						case LEX_ID:
 						{
-							fout << "\tpush " << tables.idenTable.table[tables.lexTable.table[i].idxTI].id << endl;
-							break;
-						}
-					}
+								if (tables.idenTable.table[tables.lexTable.table[i].idxTI].idtype /*==*/ != IT::IDTYPE::F)
+								{
+									fout << "\tpush " << tables.idenTable.table[tables.lexTable.table[i].idxTI].id << endl;
+									break;
+								}
+								break;
+							}
 
-					case LEX_ID:
-					{
-						if (tables.idenTable.table[tables.lexTable.table[i].idxTI].idtype /*==*/ != IT::IDTYPE::F)
+						case '@':
 						{
-							/*fout << "\t\tcall " << tables.idenTable.table[tables.lexTable.table[i].idxTI].id << "\n\tpush eax\n";*/
-							fout << "\tpush " << tables.idenTable.table[tables.lexTable.table[i].idxTI].id << endl;
-							break;
-						}
-						//--- 168 was here | if bad res => return
-						break;
-					}
+								fout << "\tcall " << tables.idenTable.table[tables.lexTable.table[i - tables.lexTable.table[i].idxTI - 1].idxTI].id << "\n\tpush eax\n";
+								break;
+							}
 
-					case '@':
-					{
-						fout << "\t\tcall " << tables.idenTable.table[tables.lexTable.table[i - tables.lexTable.table[i].idxTI - 1].idxTI].id << "\n\tpush eax\n";
-						break;
-					}
-
-					case LEX_ARITHMETIC:
-					{
-						switch (tables.idenTable.table[tables.lexTable.table[i].idxTI].id[0])
+						case LEX_ARITHMETIC:
 						{
+								switch (tables.idenTable.table[tables.lexTable.table[i].idxTI].id[0])
+								{
 
-						case LEX_STAR:
-						{
-							fout << "\tpop eax\n\tpop ebx\n";
-							fout << "\tmul ebx\n\tpush eax\n";
-							break;
-						}
+									case LEX_STAR:
+									{
+										fout << "\tpop eax\n\tpop ebx\n";
+										fout << "\tmul ebx\n\tpush eax\n";
+										break;
+									}
 
-						case LEX_PLUS:
-						{
-							fout << "\tpop eax\n\tpop ebx\n";
-							fout << "\tadd eax, ebx\n\tpush eax\n";
-							break;
-						}
+									case LEX_PLUS:
+									{
+										fout << "\tpop eax\n\tpop ebx\n";
+										fout << "\tadd eax, ebx\n\tpush eax\n";
+										break;
+									}
 
-						case LEX_MINUS:
-						{
-							fout << "\tpop ebx\n\tpop eax\n";
-							fout << "\tsub eax, ebx\n\tpush eax\n";
-							break;
-						}
+									case LEX_MINUS:
+									{
+										fout << "\tpop ebx\n\tpop eax\n";
+										fout << "\tsub eax, ebx\n\tpush eax\n";
+										break;
+									}
 
-						case LEX_DIRSLASH:
-						{
-							fout << "\tpop ebx\n\tpop eax\n";
-							fout << "\tcmp ebx,0\n"\
-								"\tje SOMETHINGWRONG\n";
-							fout << "\tcdq\n";
-							fout << "\tidiv ebx\n\tpush eax\n";
-							break;
-						}
+									case LEX_DIRSLASH:
+									{
+										fout << "\tpop ebx\n\tpop eax\n";
+										fout << "\tcmp ebx,0\n"\
+											"\tje SOMETHINGWRONG\n";
+										fout << "\tcdq\n";
+										fout << "\tidiv ebx\n\tpush eax\n";
+										break;
+									}
 
-						case LEX_MODULO:
-						{
+									case LEX_MODULO:
+									{
 
-							fout << "\tpop ebx\n\tpop eax\n";
-							fout << "\tcmp ebx,0\n"\
-								"\tje SOMETHINGWRONG\n";
-							fout << "\tcdq\n";
-							fout << "\tidiv ebx\n\tpush edx\n";
-							break;
-						}
+										fout << "\tpop ebx\n\tpop eax\n";
+										fout << "\tcmp ebx,0\n"\
+											"\tje SOMETHINGWRONG\n";
+										fout << "\tcdq\n";
+										fout << "\tidiv ebx\n\tpush edx\n";
+										break;
+									}
 
 
-						default:
-						{
-							break;
-						}
+									default:
+									{
+										break;
+									}
 
-						}
+								}
 
-					}
-
+							}
 					}
 					i++;
-					/*switch (tables.idenTable.table[tables.lexTable.table[i + 1].idxTI].iddatatype)
-					{
-
-						case IT::IDDATATYPE::INT:
-						{
-							fout << "\npush " << tables.idenTable.table[tables.lexTable.table[i + 1].idxTI].id << "\ncall outStreamN\n";
-							break;
-						}
-
-						case IT::IDDATATYPE::STR:
-						{
-							if (tables.idenTable.table[tables.lexTable.table[i + 1].idxTI].idtype == IT::IDTYPE::L)
-								fout << "\npush offset " << tables.idenTable.table[tables.lexTable.table[i + 1].idxTI].id << "\ncall outStreamW\n";
-							else fout << "\npush " << tables.idenTable.table[tables.lexTable.table[i + 1].idxTI].id << "\ncall outStreamW\n";
-
-							break;
-						}
-
-					}*/
 				}
 				if(outType==IT::INT)
-					fout << "\ncall outStreamN\n";
+					fout << "\n\tcall outStreamN\n";
 				else 
 					fout << "\ncall outStreamW\n";
 				break;
-			}
-			case LEX_LEFTBRACE:		//+++
+				}
+			case LEX_LEFTBRACE:		
 			{
-				if (numOfIf && /*!flElse &&*/ flIf)
+				if (numOfIf && flIf)
 				{
 					fout << "ifi" << ifI.top() << ":\n";
 					flIf = false;
@@ -516,13 +466,13 @@ void Generation::CodeGeneration(Scanner::Tables& tables)
 				}
 				break;
 			}
-			case LEX_CLOSE_PROC:	//+++
+			case LEX_CLOSE_PROC:	
 			{
 				if (flEntry && !flagFunc && tables.lexTable.table[i + 1].lexema == LEX_SEMICOLON)
 				{
 					if (flret)
 					{
-						fout << "theend:\n";
+						fout << "theend:";
 						flret = false;
 					}
 					fout << END;
@@ -541,23 +491,9 @@ void Generation::CodeGeneration(Scanner::Tables& tables)
 					break;
 				}
 				break;
-			}
-			case LEX_RIGHTBRACE:	//+++
+				}
+			case LEX_RIGHTBRACE:	
 			{
-			
-				//----
-				/*if (flagFunc && tables.lexTable.table[i + 1].lexema == LEX_SEMICOLON)
-				{
-					if (flret)
-					{
-						fout << "local" << numOfret++ << ":\n";
-						fout << "\tpop eax\n\tret\n";
-						flret = false;
-					}
-					fout << funcName << " ENDP\n\n";
-					flagFunc = false;
-				}*/
-
 				if (!stk.empty())
 				{
 					switch (stk.top())
@@ -567,13 +503,11 @@ void Generation::CodeGeneration(Scanner::Tables& tables)
 							if (tables.lexTable.table[i + 1].lexema == LEX_ELSE)
 							{
 								fout << "\tjmp ifEnd" << ifI.top() << endl;
-								//ifi.pop();
 							}
 							else
 							{
 								fout << "else" << ifI.top() << ":\n";
 								ifI.pop();
-								//num_of_if--; // --
 							}
 							stk.pop();
 							break;
@@ -583,7 +517,6 @@ void Generation::CodeGeneration(Scanner::Tables& tables)
 							fout << "ifEnd" << ifI.top() << ":\n";
 							ifI.pop();
 							flElse = false;
-							//num_of_if--; // --
 							stk.pop();
 							break;
 						}
@@ -593,8 +526,8 @@ void Generation::CodeGeneration(Scanner::Tables& tables)
 					}
 				}
 				break;
-			}
-			case LEX_IF:			//+++
+				}
+			case LEX_IF:			
 			{
 				flIf = true;
 				stk.push(1); // 1 - признак if
@@ -602,13 +535,13 @@ void Generation::CodeGeneration(Scanner::Tables& tables)
 				ifI.push(numOfIf);
 				break;
 			}
-			case LEX_ELSE:			//+++		
+			case LEX_ELSE:					
 			{
 				flElse = true;
 				stk.push(2);			// 2- признак else
 				break;
+				
 			}
-
 		}
 	}
 

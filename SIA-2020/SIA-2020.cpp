@@ -53,8 +53,6 @@ int wmain(int argc, wchar_t* argv[])
 
 		Generation::CodeGeneration(tables);
 
-		//system("start D:\\Desktop\\Labs\\SIA-2020\\compilation.bat");
-
 		//-------------------------
 
 		IT::ShowTable(&tables.idenTable);
