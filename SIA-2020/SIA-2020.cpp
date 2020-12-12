@@ -23,7 +23,7 @@ int wmain(int argc, wchar_t* argv[])
 		Scanner::Tables tables = Scanner::GetTables(words);
 		
 		//-------------------------
-
+		
 
 		//-------SYNTAX ANALYSE----								
 

@@ -1,27 +1,41 @@
-num proc sum(num a, num b)
+num proc factorial(num x)
 [
-	out a+b;
-];
-num proc isequals(num a, num b)
-[
-	if(a&b)
+	if(x<0)
 	{
 		out 0;
+	};
+	if(x&0)
+	{
+		out 1;
 	}
 	else
 	{
-		out 1;
+		create num temp;
+		temp = x - 1;
+		out factorial(temp)*x;
 	};
 ];
-num proc getlen(word string)
+
+num proc sunlight(word a, word b)
 [
-	out stringLen(string);
+	create num q;
+	q = lexStrCmp(a,b);
+	out q;
 ];
+
 entry
 [
-	create num hael;
-	hael = 2 - 40;
-	hael = hael * 2;
-	outStream hael ;
+	create word stroka;
+	create num len;
+	create num result;
+	
+	stroka = 'Hello wolrd!';
+	len = stringLen(stroka);
+	result = sunlight(stroka, 'Hello wolrd!');
+
+	outStream result;
+	outStream factorial(5)*2;
+	outStream len;
+
 	out 0;
 ];
