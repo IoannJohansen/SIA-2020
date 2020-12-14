@@ -15,16 +15,7 @@ extern "C"
 
 	int __stdcall lexStrCmp(char* source1, char* source2)
 	{
-		int i = 0;
-		while (source1[i] != '\0')
-		{
-			if (source1[i] != source2[i])
-			{
-				return -1;
-			}
-			i++;
-		}
-		return 0;
+		return -strcmp(source1, source2);
 	}
 
 	int __stdcall outStreamW(char* value)

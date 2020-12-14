@@ -24,7 +24,14 @@ void Generation::CodeGeneration(Scanner::Tables& tables)
 
 			case IT::IDDATATYPE::STR:
 			{
-				fout << " BYTE " << tables.idenTable.table[i].value.vstr.str << ", 0\n";
+				if (tables.idenTable.table[i].value.vstr.len-2==0)
+				{
+					fout << " BYTE " << "0\n";
+				}
+				else
+				{
+					fout << " BYTE " << tables.idenTable.table[i].value.vstr.str << ", 0\n";
+				}
 				break;
 			}
 
@@ -320,7 +327,6 @@ void Generation::CodeGeneration(Scanner::Tables& tables)
 				break;
 
 			}
-
 			case LEX_LEFTHESIS:		
 			{
 				if (numOfIf && tables.lexTable.table[i - 1].lexema == LEX_IF)
@@ -385,7 +391,7 @@ void Generation::CodeGeneration(Scanner::Tables& tables)
 
 						case '@':
 						{
-							fout << "\tcall " << tables.idenTable.table[tables.lexTable.table[i - tables.lexTable.table[i].idxTI - 1].idxTI].id << "\n\tpusheax\n";
+							fout << "\tcall " << tables.idenTable.table[tables.lexTable.table[i - tables.lexTable.table[i].idxTI - 1].idxTI].id << "\n\tpush eax\n";
 							break;
 						}
 

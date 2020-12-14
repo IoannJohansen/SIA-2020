@@ -14,10 +14,16 @@ null_division BYTE 'ERROR: DIVISION BY ZERO', 0
 	OVER_FLOW BYTE 'ERROR: OVERFLOW', 0
 	L0 SDWORD 0
 	L1 SDWORD 1
-	L2 BYTE 'Hello wolrd!', 0
-	L3 SDWORD 5
-	L4 SDWORD 2
-	L5 SDWORD 0
+	L2 BYTE 'Seni0r QA - Art_K!', 0
+	L3 SDWORD 2
+	L4 SDWORD 1
+	L5 BYTE 'Hello wolrd!', 0
+	L6 BYTE '’ÛÈ', 0
+	L7 BYTE 'Qwe', 0
+	L8 BYTE 0
+	L9 SDWORD 2
+	L10 SDWORD 5
+	L11 SDWORD 0
 .DATA
 	tempfactorial SDWORD 0
 	qsunlight SDWORD 0
@@ -80,8 +86,34 @@ local1:
 	ret
 sunlight ENDP
 
-main PROC
+artem PROC aartem:SDWORD
 	push offset L2
+	jmp local2
+local2:
+	pop eax
+	ret
+artem ENDP
+
+retstr PROC aretstr:SDWORD
+	push L3
+	call artem
+	push eax
+	jmp local3
+local3:
+	pop eax
+	ret
+retstr ENDP
+
+main PROC
+	push L4
+	call retstr
+	push eax
+	pop strokaENTRY
+
+	push strokaENTRY
+
+call outStreamW
+	push offset L5
 	pop strokaENTRY
 
 	push strokaENTRY
@@ -89,8 +121,28 @@ main PROC
 	push eax
 	pop eax
 	mov lenENTRY, eax
+	push offset L6
+	call stringLen
+	push eax
+	push offset L7
+	push offset L8
+	call lexStrCmp
+	push eax
+	push L9
+	call factorial
+	push eax
+	pop eax
+	pop ebx
+	mul ebx
+	push eax
+	pop eax
+	pop ebx
+	add eax, ebx
+	push eax
+	pop eax
+	mov lenENTRY, eax
 	push strokaENTRY
-	push offset L2
+	push offset L5
 	call sunlight
 	push eax
 	pop eax
@@ -98,10 +150,10 @@ main PROC
 	push resultENTRY
 
 	call outStreamN
-	push L3
+	push L10
 	call factorial
 	push eax
-	push L4
+	push L9
 	pop eax
 	pop ebx
 	mul ebx
@@ -111,11 +163,11 @@ main PROC
 	push lenENTRY
 
 	call outStreamN
-	push L5
+	push L11
 	jmp theend
 theend:
 	call ExitProcess
-SOMETHINGWRONG::
+SOMETHINGWRONG:
 	push offset null_division
 	call outStreamW
 	jmp konec

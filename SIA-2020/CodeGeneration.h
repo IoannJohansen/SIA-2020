@@ -9,7 +9,7 @@
 
 #define END \
 "\n\tcall ExitProcess"\
-"\nSOMETHINGWRONG::"\
+"\nSOMETHINGWRONG:"\
 "\n\tpush offset null_division"\
 "\n\tcall outStreamW"\
 "\n\tjmp konec"\
