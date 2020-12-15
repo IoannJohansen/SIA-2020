@@ -11,7 +11,7 @@ namespace Semantic
 		CheckFuncitionParams(functions, *tables);
 		CheckBuiltInFunParam(tables->lexTable, tables->idenTable);
 		CheckForReturnType(tables->lexTable, tables->idenTable);
-		AddParrentBlockToId(tables->idenTable);
+		AddParrentBlockToId(*tables);
 		cout << "Semantic analysis done" << endl;
 	}
 
@@ -345,13 +345,13 @@ namespace Semantic
 			return false;
 	}
 
-	void AddParrentBlockToId(IT::IdTable& idenTable)
+	void AddParrentBlockToId(Scanner::Tables& tables)
 	{
-		for (int i = 0; i < idenTable.size; i++)
+		for (int i = 0; i < tables.idenTable.size; i++)
 		{
-			if (idenTable.table[i].idtype!=IT::L && idenTable.table[i].idtype != IT::F && idenTable.table[i].idtype != IT::A)
+			if (tables.idenTable.table[i].idtype!=IT::L && tables.idenTable.table[i].idtype != IT::A && tables.lexTable.table[tables.idenTable.table[i].idxfirstLE+1].lexema != LEX_STRLEN && tables.lexTable.table[tables.idenTable.table[i].idxfirstLE + 1].lexema != LEX_STRCMP)
 			{
-				strcat(idenTable.table[i].id, idenTable.table[i].parrentBlock);
+				strcat(tables.idenTable.table[i].id, tables.idenTable.table[i].parrentBlock);
 			}
 		}
 	}

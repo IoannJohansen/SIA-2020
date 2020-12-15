@@ -8,7 +8,6 @@ int wmain(int argc, wchar_t* argv[])
 	Parm::PARM param = Parm::getparm(argc, argv);
 	try
 	{
-
 		log = Log::getlog(param.log);
 		In::IN in = In::getin(param.in);
 		Log::WriteLog(log);
@@ -16,51 +15,38 @@ int wmain(int argc, wchar_t* argv[])
 		Log::WriteIn(log, in);
 		Log::Close(log);
 
-
 		//-------LEX ANALYSE-------
-
-		Scanner::Words* words = Scanner::TextDivision(in);
-		Scanner::Tables tables = Scanner::GetTables(words);
-		
+		Scanner::Words* tokens = Scanner::DivisionIntoTokens(in);
+		Scanner::Tables lex = Scanner::LexAnalysis(tokens);
 		//-------------------------
 		
-
 		//-------SYNTAX ANALYSE----								
-
 		log = Log::getlog(param.sin);
 		MFST_TRACE_START(log);								
-		MFST::Mfst mfst(tables, GRB::getGreibach());	
+		MFST::Mfst mfst(lex, GRB::getGreibach());	
 		mfst.start(log);
 		mfst.savededucation();
 		mfst.printrules(log);
 		Log::Close(log);
-
 		//-------------------------
-		
-		//-------SEMANTIC ANALYSE----
-		
-		Semantic::SemanticAnalysis(&tables);
+
+		//-------SEMANTIC ANALYSE--
+		Semantic::SemanticAnalysis(&lex);
+		//-------------------------
 	
-		//---------------------------
-		
 		//-------POLISH NOTATION---
-
-		PN::PolishNotation(tables);
-
+		PN::PolishNotation(lex);
 		//-------------------------
-		
+
 		//-------CODE GENERATION
-
-		Generation::CodeGeneration(tables);
-
+		Generation::CodeGeneration(lex);
 		//-------------------------
 
-		IT::ShowTable(&tables.idenTable);
-		tables.idenTable.writeIT(param.in);
-		tables.lexTable.writeLT(param.in);
-		LT::Delete(tables.lexTable);
-		IT::Delete(tables.idenTable);
-
+		IT::ShowTable(&lex.idenTable);
+		lex.idenTable.writeIT(param.in);
+		lex.lexTable.writeLT(param.in);
+		LT::Delete(lex.lexTable);
+		IT::Delete(lex.idenTable);
 	}
 	catch (Error::ERROR e) 
 	{

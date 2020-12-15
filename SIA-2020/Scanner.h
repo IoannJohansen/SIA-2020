@@ -4,14 +4,14 @@
 #include "IT.h"
 #include <list>
 
-#define FILLWORD buff[buffPosition] = '\0';\
-				 buffPosition = 0;\
+#define ADDWORD buff[posInBuff] = '\0';\
+				 posInBuff = 0;\
 				 strcpy_s(entry.token, buff); \
 				 entry.line = line; \
 				 entry.symInLine = posInLine;\
-				 words->Add(entry);
+				 tokens->Add(entry);
 				
-#define VARPARM tables->lexTable.table[tables->lexTable.size-1].lexema==LEX_ID &&\
+#define CHECKFORPARMS tables->lexTable.table[tables->lexTable.size-1].lexema==LEX_ID &&\
 				tables->idenTable.table[tables->lexTable.table[tables->lexTable.size-1].idxTI].idtype==IT::F &&\
 				tables->lexTable.table[tables->lexTable.size-2].lexema==LEX_PROC
 
@@ -26,9 +26,9 @@
 #define CHECKPARM (tables->lexTable.table[tables->lexTable.size-2].lexema==LEX_TYPE) &&\
  (tables->lexTable.table[tables->lexTable.size-3].lexema==LEX_COMMA || tables->lexTable.table[tables->lexTable.size-3].lexema==LEX_LEFTHESIS)
 
-#define LINE words->arr.front().line
+#define LINE tokens->arr.front().line
 
-#define SYM words->arr.front().symInLine
+#define SYM tokens->arr.front().symInLine
 
 #define LEXLINE tables->lexTable.table[tables->lexTable.size-1].sn
 
@@ -53,21 +53,24 @@ namespace Scanner
 
 	class Words
 	{
-	public:
+		public:
 		list<Word> arr;
+
 		void Add(Word entry) 
 		{
 			arr.push_back(entry);
 		}
+
 		void Delete()
 		{
 			arr.pop_front();
 		}
+		
 	};
 
-	Words* TextDivision(In::IN in);
-	Tables GetTables(Words* words);
-	char Analysis(char* lex, Tables* tables);
+	Words* DivisionIntoTokens(In::IN in);
+	Tables LexAnalysis(Words* words);
+	char AnalysisToken(char* lex, Tables* tables);
 	bool CheckForStringLiteral(Words* words);
 	bool CheckForIntegerLiteral(Words* words);
 	bool CheckId(Words* words);
@@ -176,6 +179,4 @@ namespace Scanner
 				FST::NODE()
 
 #pragma endregion
-
-	
 }

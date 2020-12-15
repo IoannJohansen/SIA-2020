@@ -15,6 +15,7 @@ num proc factorial(num x)
 		out factorial(temp)*x;
 	};
 ];
+
 num proc sunlight(word a, word b)
 [
 	create num q;
@@ -22,26 +23,13 @@ num proc sunlight(word a, word b)
 	out q;
 ];
 
-word proc artem(num a)
-[
-	out 'Seni0r QA - Art_K!';
-];
-
-word proc retstr(num a)
-[
-	out artem(2);
-];
-
 entry
 [
 	create word stroka;
-	stroka = retstr(1);
-	outStream stroka;
 	create num len;
 	create num result;
 	stroka = 'Hello wolrd!';
 	len = stringLen(stroka);
-	len = stringLen('’ÛÈ')+lexStrCmp('Qwe', '')*factorial(2);
 	result = sunlight(stroka, 'Hello wolrd!');
 	outStream result;
 	outStream factorial(5)*2;
