@@ -27,7 +27,7 @@ namespace Error
 		ERROR_ENTRY(111, "[SYSTEM] Недопустимый символ в исходном коде (-in)"),
 		ERROR_ENTRY(112, "[SYSTEM] Ошибка при создании файла протокола (-log)"),
 		ERROR_ENTRY(113, "[SYSTEM] Файл, переданный как -in:, пуст"),
-		ERROR_ENTRY_NODEF(114),
+		ERROR_ENTRY(114, "[SYSTEM] Не удалось создать выходной файл"),
 		ERROR_ENTRY_NODEF(115),
 
 		//------------------LEXICAL ANALYSIS ( 116-133 )

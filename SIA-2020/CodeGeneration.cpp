@@ -8,11 +8,12 @@ void Generation::CodeGeneration(Scanner::Tables& tables)
 	stack<int> ifI;
 	int numOfret = 0, numOfIf = 0;
 	bool flagFunc = false, flEntry = false, flret = false, flOut = false, flElse = false, flIf = false;
-	fout.open("../SIA_ASM/SIA_Asm.asm");
-	if (!fout.is_open())throw ERROR_THROW(1);
+	fout.open("D:\\Desktop\\Labs\\SIA-2020\\SIA_ASM\\SIA_Asm.asm");
+	if (!fout.is_open())throw ERROR_THROW(114);
 	fout << HEAD;
 	fout << LIBPROTOS;
 	fout << CONST;
+
 	for (int i = 0; i < tables.idenTable.size; i++)
 	{
 		if (tables.idenTable.table[i].idtype == IT::L)
@@ -22,24 +23,24 @@ void Generation::CodeGeneration(Scanner::Tables& tables)
 			switch (tables.idenTable.table[i].iddatatype)
 			{
 
-			case IT::IDDATATYPE::STR:
-			{
-				if (tables.idenTable.table[i].value.vstr.len-2==0)
+				case IT::IDDATATYPE::STR:
 				{
-					fout << " BYTE " << "0\n";
+					if (tables.idenTable.table[i].value.vstr.len-2==0)
+					{
+						fout << " BYTE " << "0\n";
+					}
+					else
+					{
+						fout << " BYTE " << tables.idenTable.table[i].value.vstr.str << ", 0\n";
+					}
+					break;
 				}
-				else
-				{
-					fout << " BYTE " << tables.idenTable.table[i].value.vstr.str << ", 0\n";
-				}
-				break;
-			}
 
-			case IT::IDDATATYPE::INT:
-			{
-				fout << " SDWORD " << tables.idenTable.table[i].value.vint << endl;
-				break;
-			}
+				case IT::IDDATATYPE::INT:
+				{
+					fout << " SDWORD " << tables.idenTable.table[i].value.vint << endl;
+					break;
+				}
 
 			}
 		}
@@ -52,10 +53,12 @@ void Generation::CodeGeneration(Scanner::Tables& tables)
 		if (tables.idenTable.table[i].idtype == IT::IDTYPE::V)
 		{
 			fout << "\t" << tables.idenTable.table[i].id;
+			
 			if (tables.idenTable.table[i].iddatatype == IT::STR)
 			{
 				fout << " DWORD ?\n";
 			}
+
 			if (tables.idenTable.table[i].iddatatype == IT::INT)
 			{
 				fout << " SDWORD 0\n";
@@ -69,7 +72,6 @@ void Generation::CodeGeneration(Scanner::Tables& tables)
 	{
 		switch (tables.lexTable.table[i].lexema)
 		{
-
 			case LEX_PROC:		
 			{
 				fout  << (funcName = tables.idenTable.table[tables.lexTable.table[++i].idxTI].id) << " PROC ";
@@ -107,7 +109,7 @@ void Generation::CodeGeneration(Scanner::Tables& tables)
 				fout << "main PROC\n";
 				break;
 			}
-			case LEX_OUT:		
+			case LEX_OUT:
 			{
 				i++;
 				while (tables.lexTable.table[i].lexema != LEX_SEMICOLON)
@@ -210,14 +212,16 @@ void Generation::CodeGeneration(Scanner::Tables& tables)
 					fout << "\tjmp local" << numOfret << endl;
 					flret = true;
 				}
+
 				if (flEntry)
 				{
 					fout << "\tjmp theend\n";
 					flret = true;
 				}
+				
 				break;
 			}
-			case LEX_EQUAL_SIGN:	
+			case LEX_EQUAL_SIGN:
 			{
 				int resPosition = i - 1;
 				while (tables.lexTable.table[i].lexema != LEX_SEMICOLON)
@@ -327,7 +331,7 @@ void Generation::CodeGeneration(Scanner::Tables& tables)
 				break;
 
 			}
-			case LEX_LEFTHESIS:		
+			case LEX_LEFTHESIS:
 			{
 				if (numOfIf && tables.lexTable.table[i - 1].lexema == LEX_IF)
 				{
@@ -356,10 +360,11 @@ void Generation::CodeGeneration(Scanner::Tables& tables)
 				}
 				break;
 				}
-			case LEX_OUTSTREAM:		
+			case LEX_OUTSTREAM:
 			{
 				i++;
 				IT::IDDATATYPE outType = tables.idenTable.table[tables.lexTable.table[i].idxTI].iddatatype;
+
 				while (tables.lexTable.table[i].lexema!=LEX_SEMICOLON)
 				{
 					switch (tables.lexTable.table[i].lexema)
@@ -381,7 +386,7 @@ void Generation::CodeGeneration(Scanner::Tables& tables)
 
 						case LEX_ID:
 						{
-							if (tables.idenTable.table[tables.lexTable.table[i].idxTI].idtype /*==*/ != IT::IDTYPE::F)
+							if (tables.idenTable.table[tables.lexTable.table[i].idxTI].idtype != IT::IDTYPE::F)
 							{
 								fout << "\tpush " << tables.idenTable.table[tables.lexTable.table[i].idxTI].id << endl;
 								break;
@@ -454,23 +459,27 @@ void Generation::CodeGeneration(Scanner::Tables& tables)
 					}
 					i++;
 				}
+
 				if(outType==IT::INT)
 					fout << "\n\tcall outStreamN\n";
 				else 
 					fout << "\ncall outStreamW\n";
 				break;
+
 				}
-			case LEX_LEFTBRACE:		
+			case LEX_LEFTBRACE:
 			{
 				if (numOfIf && flIf)
 				{
 					fout << "ifi" << ifI.top() << ":\n";
 					flIf = false;
 				}
+
 				if (flElse && tables.lexTable.table[i - 1].lexema == LEX_ELSE)
 				{
 					fout << "else" << ifI.top() << ":\n";
 				}
+
 				break;
 			}
 			case LEX_CLOSE_PROC:	
@@ -485,6 +494,7 @@ void Generation::CodeGeneration(Scanner::Tables& tables)
 					fout << END;
 					break;
 				}
+
 				if (flagFunc && tables.lexTable.table[i + 1].lexema == LEX_SEMICOLON)
 				{
 					if (flret)
@@ -519,6 +529,7 @@ void Generation::CodeGeneration(Scanner::Tables& tables)
 							stk.pop();
 							break;
 						}
+
 						case 2:
 						{
 							fout << "ifEnd" << ifI.top() << ":\n";
@@ -537,7 +548,7 @@ void Generation::CodeGeneration(Scanner::Tables& tables)
 			case LEX_IF:			
 			{
 				flIf = true;
-				stk.push(1); // 1 - признак if
+				stk.push(1);
 				numOfIf++;
 				ifI.push(numOfIf);
 				break;
@@ -545,9 +556,8 @@ void Generation::CodeGeneration(Scanner::Tables& tables)
 			case LEX_ELSE:					
 			{
 				flElse = true;
-				stk.push(2);			// 2- признак else
+				stk.push(2);
 				break;
-				
 			}
 		}
 	}

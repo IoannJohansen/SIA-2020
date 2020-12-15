@@ -2,7 +2,7 @@
 .model flat, stdcall
 includelib libucrt.lib
 includelib kernel32.lib
-includelib ..\Debug\LIB.lib
+includelib "D:\Desktop\Labs\SIA-2020\Debug\LIB.lib"
 ExitProcess PROTO :DWORD
 outStreamW PROTO: SDWORD
 outStreamN PROTO: DWORD
@@ -11,7 +11,6 @@ lexStrCmp PROTO: DWORD, :DWORD
 .stack 4096
 .CONST
 null_division BYTE 'ERROR: DIVISION BY ZERO', 0
-	OVER_FLOW BYTE 'ERROR: OVERFLOW', 0
 	L0 SDWORD 0
 	L1 SDWORD 1
 	L2 BYTE 'Hello wolrd!', 0
@@ -61,6 +60,8 @@ else2:
 	push eax
 	jmp local0
 ifEnd2:
+	push L1
+	jmp local0
 local0:
 	pop eax
 	ret
@@ -102,10 +103,13 @@ main PROC
 	call factorialGLOBAL
 	push eax
 	push L4
-	pop eax
 	pop ebx
-	mul ebx
-	push eax
+	pop eax
+	cmp ebx,0
+	je SOMETHINGWRONG
+	cdq
+	idiv ebx
+	push edx
 
 	call outStreamN
 	push lenENTRY

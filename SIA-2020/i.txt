@@ -14,6 +14,7 @@ num proc factorial(num x)
 		temp = x - 1;
 		out factorial(temp)*x;
 	};
+	out 1;
 ];
 
 num proc sunlight(word a, word b)
@@ -28,11 +29,14 @@ entry
 	create word stroka;
 	create num len;
 	create num result;
+
 	stroka = 'Hello wolrd!';
 	len = stringLen(stroka);
 	result = sunlight(stroka, 'Hello wolrd!');
+	
 	outStream result;
-	outStream factorial(5)*2;
+	outStream factorial(5)%2;
 	outStream len;
+	
 	out 0;
 ];

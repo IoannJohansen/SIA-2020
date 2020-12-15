@@ -5,9 +5,10 @@ int wmain(int argc, wchar_t* argv[])
 {
 	Log::LOG log = Log::INITLOG;
 	setlocale(LC_ALL, "Russian");
-	Parm::PARM param = Parm::getparm(argc, argv);
+	Parm::PARM param;
 	try
 	{
+		param = Parm::getparm(argc, argv);
 		log = Log::getlog(param.log);
 		In::IN in = In::getin(param.in);
 		Log::WriteLog(log);
@@ -41,18 +42,26 @@ int wmain(int argc, wchar_t* argv[])
 		//-------CODE GENERATION
 		Generation::CodeGeneration(lex);
 		//-------------------------
-
+		
 		IT::ShowTable(&lex.idenTable);
 		lex.idenTable.writeIT(param.in);
 		lex.lexTable.writeLT(param.in);
 		LT::Delete(lex.lexTable);
 		IT::Delete(lex.idenTable);
 	}
-	catch (Error::ERROR e) 
+	catch (Error::ERROR e)
 	{
-		log = Log::getlog(param.log);
-		Log::WriteError(log, e);
-		if(e.id!=100)Log::Close(log);
+		if (e.id != 100)
+		{
+			log = Log::getlog(param.log);
+			Log::WriteError(log, e);
+			Log::Close(log);
+		}
+		else
+		{
+			cout << "Îøèáêà!" << endl;
+			cout << e.message << endl;
+		}
 	}
 	catch (char* e)
 	{

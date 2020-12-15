@@ -7,9 +7,8 @@ namespace Semantic
 	{
 		int index;
 		int countOfParam;
-		IT::IDDATATYPE types[8];
+		IT::IDDATATYPE types[9];
 	};
-
 
 	struct Functions
 	{

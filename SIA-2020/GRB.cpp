@@ -7,9 +7,9 @@ namespace GRB
 	Greibach greibach(NS('S'), TS('$')				// стартовый символ / дно стека
 		, 7											
 		, Rule(NS('S'), GRB_ERROR_SERIES + 0, 3,		// структура программы
-			Rule::Chain(11, TS('t'), TS('p'), TS('i'), TS('('), NS('F'), TS(')'), TS('['), NS('N'), TS(']'), TS(';'), NS('S')),
+			Rule::Chain(14, TS('t'), TS('p'), TS('i'), TS('('), NS('F'), TS(')'), TS('['), NS('N'), TS('o'), NS('E'), TS(';') , TS(']'), TS(';'), NS('S')),
 			Rule::Chain(8, TS('e'), TS('['), NS('N'), TS('o'), NS('E'), TS(';'), TS(']'), TS(';')),
-			Rule::Chain(10, TS('t'), TS('p'), TS('i'), TS('('), NS('F'), TS(')'), TS('['), NS('N'), TS(']'), TS(';')))
+			Rule::Chain(13, TS('t'), TS('p'), TS('i'), TS('('), NS('F'), TS(')'), TS('['), NS('N'), TS('o'), NS('E'), TS(';'), TS(']'), TS(';')))
 
 		, Rule(NS('N'), GRB_ERROR_SERIES + 1, 18		// конструкции в функциях
 			, Rule::Chain(5, TS('c'), TS('t'), TS('i'), TS(';'), NS('N'))

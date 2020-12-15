@@ -29,107 +29,103 @@ namespace Semantic
 				switch (type)
 				{
 
-				case IT::STR:
-				{
-					for (int j = 0; tables->lexTable.table[i + j].lexema != LEX_SEMICOLON; j++)
+					case IT::STR:
 					{
-						if (tables->lexTable.table[i + j].lexema == LEX_ARITHMETIC)	// sign in expr with str
+						for (int j = 0; tables->lexTable.table[i + j].lexema != LEX_SEMICOLON; j++)
 						{
-							throw ERROR_THROW_IN(SEM_ERROR_SIRES + 1, tables->lexTable.table[i + j].sn, 0);
-						}
-
-						if (tables->lexTable.table[i + j].lexema == LEX_ID || tables->lexTable.table[i + j].lexema == LEX_LITERAL || tables->lexTable.table[i + j].lexema == LEX_STRCMP || tables->lexTable.table[i + j].lexema == LEX_STRLEN)//!
-						{
-							if (tables->idenTable.table[tables->lexTable.table[i + j].idxTI].idtype == IT::F)
+							if (tables->lexTable.table[i + j].lexema == LEX_ARITHMETIC)	// sign in expr with str
 							{
-								if (tables->idenTable.table[tables->lexTable.table[i + j].idxTI].iddatatype != type)
+								throw ERROR_THROW_IN(SEM_ERROR_SIRES + 1, tables->lexTable.table[i + j].sn, 0);
+							}
+
+							if (tables->lexTable.table[i + j].lexema == LEX_ID || tables->lexTable.table[i + j].lexema == LEX_LITERAL || tables->lexTable.table[i + j].lexema == LEX_STRCMP || tables->lexTable.table[i + j].lexema == LEX_STRLEN)//!
+							{
+								if (tables->idenTable.table[tables->lexTable.table[i + j].idxTI].idtype == IT::F)
+								{
+									if (tables->idenTable.table[tables->lexTable.table[i + j].idxTI].iddatatype != type)
+									{
+										throw ERROR_THROW_IN(SEM_ERROR_SIRES + 3, tables->lexTable.table[i + j].sn, 0);
+									}
+									if (tables->lexTable.table[i + j + 1].lexema != LEX_LEFTHESIS)
+									{
+										throw ERROR_THROW_IN(SEM_ERROR_SIRES + 2, tables->lexTable.table[i + j].sn, 0);									// bad call of func
+									}
+
+									int countOfHesis = 0;
+									do
+									{
+										j++;
+										if (tables->lexTable.table[i + j].lexema == LEX_LEFTHESIS)
+											countOfHesis++;
+										if (tables->lexTable.table[i + j].lexema == LEX_RIGHTHESIS)
+											countOfHesis--;
+									} while (countOfHesis != 0);
+
+								}
+								else if (tables->idenTable.table[tables->lexTable.table[i + j].idxTI].iddatatype != type)
 								{
 									throw ERROR_THROW_IN(SEM_ERROR_SIRES + 3, tables->lexTable.table[i + j].sn, 0);
-								}
-								if (tables->lexTable.table[i + j + 1].lexema != LEX_LEFTHESIS)
-								{
-									throw ERROR_THROW_IN(SEM_ERROR_SIRES + 2, tables->lexTable.table[i + j].sn, 0);									// bad call of func
-								}
-
-								int countOfHesis = 0;
-								do
-								{
-									j++;
-									if (tables->lexTable.table[i + j].lexema == LEX_LEFTHESIS)
-										countOfHesis++;
-									if (tables->lexTable.table[i + j].lexema == LEX_RIGHTHESIS)
-										countOfHesis--;
-								} while (countOfHesis != 0);
-
+								}			// Unaccording types in expr
 							}
-							else if (tables->idenTable.table[tables->lexTable.table[i + j].idxTI].iddatatype != type)
-							{
-								throw ERROR_THROW_IN(SEM_ERROR_SIRES + 3, tables->lexTable.table[i + j].sn, 0);
-							}			// Unaccording types in expr
 						}
+						break;
 					}
-					break;
-				}
 
-				case IT::INT:
-				{
-					int index = 0;
-					while (tables->lexTable.table[i + index].lexema != LEX_SEMICOLON)
+					case IT::INT:
 					{
-						if (tables->lexTable.table[i + index].lexema == LEX_LESS || tables->lexTable.table[i + index].lexema == LEX_MORE)
+						int index = 0;
+						while (tables->lexTable.table[i + index].lexema != LEX_SEMICOLON)
 						{
-							throw ERROR_THROW_IN(SEM_ERROR_SIRES + 4, tables->lexTable.table[i + index].sn, 0);
-						}					// using >< in expr without if
-
-						if (tables->lexTable.table[i + index].lexema == LEX_LITERAL || tables->lexTable.table[i + index].lexema == LEX_ID || tables->lexTable.table[i + index].lexema == LEX_STRCMP || tables->lexTable.table[i + index].lexema == LEX_STRLEN)
-						{
-							if (tables->idenTable.table[tables->lexTable.table[i + index].idxTI].idtype == IT::IDTYPE::F)
+							if (tables->lexTable.table[i + index].lexema == LEX_LITERAL || tables->lexTable.table[i + index].lexema == LEX_ID || tables->lexTable.table[i + index].lexema == LEX_STRCMP || tables->lexTable.table[i + index].lexema == LEX_STRLEN)
 							{
-								if (tables->idenTable.table[tables->lexTable.table[i + index].idxTI].iddatatype != type)
+								if (tables->idenTable.table[tables->lexTable.table[i + index].idxTI].idtype == IT::IDTYPE::F)
 								{
-									throw ERROR_THROW_IN(SEM_ERROR_SIRES + 3, tables->lexTable.table[i + index].sn, 0);	   // unAccordong of types in express
+									if (tables->idenTable.table[tables->lexTable.table[i + index].idxTI].iddatatype != type)
+									{
+										throw ERROR_THROW_IN(SEM_ERROR_SIRES + 3, tables->lexTable.table[i + index].sn, 0);	   // unAccordong of types in express
+									}
+
+									if (tables->lexTable.table[i + index + 1].lexema != LEX_LEFTHESIS)
+										throw ERROR_THROW_IN(SEM_ERROR_SIRES + 2, tables->lexTable.table[i + index].sn, 0);	// call withou ()
+
+									int countOfHesis = 0;
+									do
+									{
+										index++;
+										if (tables->lexTable.table[i + index].lexema == LEX_LEFTHESIS)
+											countOfHesis++;
+										if (tables->lexTable.table[i + index].lexema == LEX_RIGHTHESIS)
+											countOfHesis--;
+
+									} while (countOfHesis != 0);
+
 								}
-								if (tables->lexTable.table[i + index + 1].lexema != LEX_LEFTHESIS)
-									throw ERROR_THROW_IN(SEM_ERROR_SIRES + 2, tables->lexTable.table[i + index].sn, 0);	// call withou ()
-
-								int countOfHesis = 0;
-								do
+								else if (tables->lexTable.table[i + index].lexema == LEX_STRCMP || tables->lexTable.table[i + index].lexema == LEX_STRLEN)
 								{
-									index++;
-									if (tables->lexTable.table[i + index].lexema == LEX_LEFTHESIS)
-										countOfHesis++;
-									if (tables->lexTable.table[i + index].lexema == LEX_RIGHTHESIS)
-										countOfHesis--;
+									if (type != IT::IDDATATYPE::INT)
+										throw ERROR_THROW_IN(SEM_ERROR_SIRES + 3, tables->lexTable.table[i + index].sn, 0);	 	// unAccordong of types in express
+									int countOfHesis = 0;
+									do
+									{
+										index++;
+										if (tables->lexTable.table[i + index].lexema == LEX_LEFTHESIS)
+											countOfHesis++;
+										if (tables->lexTable.table[i + index].lexema == LEX_RIGHTHESIS)
+											countOfHesis--;
 
-								} while (countOfHesis != 0);
-
-							}
-							else if (tables->lexTable.table[i + index].lexema == LEX_STRCMP || tables->lexTable.table[i + index].lexema == LEX_STRLEN)
-							{
-								if (type != IT::IDDATATYPE::INT)
-									throw ERROR_THROW_IN(SEM_ERROR_SIRES + 3, tables->lexTable.table[i + index].sn, 0);	 	// unAccordong of types in express
-								int countOfHesis = 0;
-								do
+									} while (countOfHesis != 0);
+								}
+								else
 								{
-									index++;
-									if (tables->lexTable.table[i + index].lexema == LEX_LEFTHESIS)
-										countOfHesis++;
-									if (tables->lexTable.table[i + index].lexema == LEX_RIGHTHESIS)
-										countOfHesis--;
-
-								} while (countOfHesis != 0);
+									if (tables->idenTable.table[tables->lexTable.table[i + index].idxTI].iddatatype != type)
+										throw ERROR_THROW_IN(SEM_ERROR_SIRES + 3, tables->lexTable.table[i + index].sn, 0);
+								}							     // unAccordong of types in express
 							}
-							else
-							{
-								if (tables->idenTable.table[tables->lexTable.table[i + index].idxTI].iddatatype != type)
-									throw ERROR_THROW_IN(SEM_ERROR_SIRES + 3, tables->lexTable.table[i + index].sn, 0);
-							}							     // unAccordong of types in express
+							index++;
+							continue;
 						}
-						index++;
-						continue;
+						break;
 					}
-					break;
-				}
 
 				}
 			}
@@ -146,9 +142,9 @@ namespace Semantic
 				temp.index = i;
 				while (idenTables.table[i+1].idtype==IT::IDTYPE::P)
 				{
-					if (temp.countOfParam > 8)
-						throw ERROR_THROW_IN(SEM_ERROR_SIRES + 5, idenTables.table[i + 1].idxfirstLE, 0);
-					temp.types[temp.countOfParam++] = idenTables.table[i + 1].iddatatype;
+					if(temp.countOfParam > 8)
+						throw ERROR_THROW_IN(SEM_ERROR_SIRES+5,idenTables.table[i + 1].idxfirstLE, 0);
+					temp.types[temp.countOfParam++]=idenTables.table[i+1].iddatatype;
 					i++;
 				}
 				AddFunc(functions, temp);
@@ -164,7 +160,6 @@ namespace Semantic
 
 	void CheckFuncitionParams(Functions& functions, Scanner::Tables& tables)
 	{
-		//bool isOk = false;
 		for (int i = 0; i < functions.size; i++)
 		{
 			for (int j = 0; j < tables.lexTable.size; j++)
@@ -181,6 +176,7 @@ namespace Semantic
 							temp.types[temp.countOfParam++] = tables.idenTable.table[tables.lexTable.table[j + k].idxTI].iddatatype;
 						}
 					}
+
 					if (!isEqual(temp, functions.table[i]))
 						throw ERROR_THROW_IN(SEM_ERROR_SIRES+7, tables.lexTable.table[j].sn, 0);
 				}
@@ -196,10 +192,12 @@ namespace Semantic
 			{
 				int countOfParam = 0;
 				int index = i;
+
 				while (lextable.table[i + 1].lexema != LEX_RIGHTHESIS)
 				{
 					if (idtable.table[lextable.table[i + 1].idxTI].iddatatype == IT::IDDATATYPE::INT)
 						throw ERROR_THROW_IN(SEM_ERROR_SIRES+8, lextable.table[i].sn, 0);
+
 					if (lextable.table[i + 1].lexema == LEX_ID || lextable.table[i + 1].lexema == LEX_LITERAL)
 						countOfParam++;
 					i++;
@@ -207,16 +205,16 @@ namespace Semantic
 
 				switch (lextable.table[index].lexema)
 				{
-				case LEX_STRCMP:
-					if (countOfParam != 2)
-						throw ERROR_THROW_IN(SEM_ERROR_SIRES + 8, lextable.table[i].sn, 0);
-					continue;
-				case LEX_STRLEN:
-					if (countOfParam != 1)
-						throw ERROR_THROW_IN(SEM_ERROR_SIRES + 8, lextable.table[i].sn, 0);
-					continue;
-				default:
-					break;
+					case LEX_STRCMP:
+						if (countOfParam != 2)
+							throw ERROR_THROW_IN(SEM_ERROR_SIRES + 8, lextable.table[i].sn, 0);
+						continue;
+					case LEX_STRLEN:
+						if (countOfParam != 1)
+							throw ERROR_THROW_IN(SEM_ERROR_SIRES + 8, lextable.table[i].sn, 0);
+						continue;
+					default:
+						break;
 				}
 			}
 		}
@@ -237,6 +235,7 @@ namespace Semantic
 							throw ERROR_THROW_IN(SEM_ERROR_SIRES+9, lextable.table[idtable.table[i].idxfirstLE + j].sn, 0);
 						isReturn = true;
 					}
+
 					if (lextable.table[idtable.table[i].idxfirstLE + j].lexema == LEX_PROC || lextable.table[idtable.table[i].idxfirstLE + j].lexema == LEX_ENTRY)
 						break;
 				}
@@ -269,9 +268,13 @@ namespace Semantic
 			if (lextable.table[i].lexema == LEX_OUTSTREAM)				// check for sense of chain with outStream token
 			{
 				int j = i;
+
 				while (lextable.table[j].lexema != LEX_ID && lextable.table[j].lexema != LEX_LITERAL)j++;
+
 				IT::IDDATATYPE type = idtable.table[lextable.table[j].idxTI].iddatatype;
+				
 				i++;
+				
 				while (lextable.table[i].lexema != LEX_SEMICOLON)
 				{
 					if (idtable.table[lextable.table[i].idxTI].iddatatype != type && lextable.table[i].lexema != '@' && lextable.table[i].lexema != LEX_ARITHMETIC && lextable.table[i].lexema != LEX_LEFTHESIS && lextable.table[i].lexema != LEX_RIGHTHESIS && lextable.table[i].lexema != LEX_COMMA)
@@ -296,21 +299,21 @@ namespace Semantic
 					switch (lextable.table[i].lexema)
 					{
 
-					case LEX_RIGHTHESIS:
-					case LEX_LEFTHESIS:
-					{
-						if (countBr > 2)throw ERROR_THROW_IN(SEM_ERROR_SIRES + 13, lextable.table[i].sn, 0);
-						countBr++;
-						break;
-					}
+						case LEX_RIGHTHESIS:
+						case LEX_LEFTHESIS:
+						{
+							if (countBr > 2)throw ERROR_THROW_IN(SEM_ERROR_SIRES + 13, lextable.table[i].sn, 0);
+							countBr++;
+							break;
+						}
 
-					case LEX_ID:
-					case LEX_LITERAL:
-					{
-						if ((countOps > 2)||(idtable.table[lextable.table[i].idxTI].iddatatype!=IT::INT))throw ERROR_THROW_IN(SEM_ERROR_SIRES + 13, lextable.table[i].sn, 0);
-						countOps++;
-						break;
-					}
+						case LEX_ID:
+						case LEX_LITERAL:
+						{
+							if ((countOps > 2)||(idtable.table[lextable.table[i].idxTI].iddatatype!=IT::INT))throw ERROR_THROW_IN(SEM_ERROR_SIRES + 13, lextable.table[i].sn, 0);
+							countOps++;
+							break;
+						}
 
 					}
 				}
@@ -355,6 +358,5 @@ namespace Semantic
 			}
 		}
 	}
-
 
 }
